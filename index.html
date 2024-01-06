@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="description"
+        content="I help businesses build responsive and functional website using modern tools and innovations- Check my Portfolio out">
+    <meta name="keywords"
+        content="Web design, programming, Sales funnel, nascent creator, landing page, Wordpress, web development">
+    <meta name="author" content="Drisaden: The Marketing Jewel">
+    <title>Currency Converter by Drisaden</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+        integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!--<link rel="icon" type="image/png" href="./assets/images/myimage.webp">-->
+    <link rel="stylesheet" href="https://adenaikeidris.com.ng/assets/css/style.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.52.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
+</head>
+
+<body>
+    <!-- Nav section -->
+    <header
+        class="relative bg-cover bg-center bg-gradient-to-b from-transparent to-black transition-all duration-300 opacity-90"
+        style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0.8) 40%), url('./assets/images/myimage2.jpg'); border-radius:  0 0 20rem 20rem/40% ">
+        <nav class="bg-transparent pt-10">
+            <div class="mx-auto px-4">
+                <div class="flex justify-between align-center">
+
+                    <div class="flex md:mx-auto">
+                        <a href="index.html" class="flex items-center py-4 px-2">
+
+<span class="text-white text-2xl tx-lg mx-2 font-semibold" style="font-family: 'Montserrat', sans-serif;
+                        font-weight: 600;"><img src="assets/images/drisadenlogo.png" alt="Drisaden -Profitable web designer" class="w-36"></span>
+                        </a>
+                    </div>
+                    <div
+                        class="text-white hidden md:flex items-center md:justify-center mx-auto lg:w-full lg:pl-48 space-x-1">
+                        <div
+                            class="text-white hidden md:flex items-center md:justify-center mx-auto lg:w-full lg:pl-48 space-x-1">
+                            <a href="./index.html"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Home</a>
+                            <a href="./blog.html"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Blog</a>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBW8peSoZOhmojarMQFOwwZpj-tUlFtez0_B90i52SIkHneQ/viewform"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Book Call</a>
+                            <a href="./projects.html"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Projects</a>
+                            <a href="./pricing"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Pricing</a>
+                            <a href="./tutorials.html"
+                                class="text-white py-4 px-2 font-semibold hover:text-gray-300">Tutorials</a>
+                        </div>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button type="button"
+                            class="cursor-pointer text-gray-500 hover:text-white focus:outline-none focus:text-white"
+                            aria-label="toggle menu" onclick="toggleMenu()">
+                            <div class="container" onclick="myFunction(this)">
+                                <div class="bar1"></div>
+                                <div class="bar2"></div>
+                                <div class="bar3"></div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="hidden md:hidden ml-5 pl-3 text-lg" id="mobile-menu">
+                <a href="./index.html"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Home</a>
+                <a href="./blog.html"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Blog</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBW8peSoZOhmojarMQFOwwZpj-tUlFtez0_B90i52SIkHneQ/viewform"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Book Call</a>
+                <a href="./projects.html"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Projects</a>
+                <a href="./pricing"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Pricing</a>
+                <a href="./tutorials.html"
+                    class="text-white block py-10 px-4 tx-base font-semibold hover:bg-gray-900">Tutorial
+                </a>
+            </div>
+
+        </nav>
+        <div
+            class="flex flex-col justify-center mx-auto items-center h-full px-6 md:px-16 lg:px-24 xl:px-32 mt-10 pb-10">
+            <!-- <div class="text-white hidden">
+        <div class="hidden" id="typed-strings">
+            <p>Interpretation and Definitions</p>
+            <p>Types of Data Collected</p>
+            <p>Use of Your Personal Data</p>
+            <p>Retention of Your Personal Data</p>
+            <p>Transfer of Your Personal Data</p>
+            <p>Disclosure of Your Personal Data</p>
+            <p>Security of Your Personal Data</p>
+            <p>Children’s Privacy</p>
+        </div>
+        <div class="mt-10 text-5xl md:text-6xl lg:text-7xl">
+            <h1 class="inline-block leading-none font-black"
+                style="font-family: 'Montserrat', sans-serif; font-weight: 900;">PRICING
+            </h1>
+        </div>
+        <span class="leading-none font-bold text-xl md:text-xl lg:text-2xl" id="typed"
+            style="font-family: 'Montserrat', sans-serif;"></span>
+
+    </div> -->
+
+            <div class="text-white w-full text-center md:w-11/12 mx-auto mb-10">
+                <h1 class="tx-mont font-extrabold text-3xl md:text-4xl lg:text-5xl">JOIN 50+ ENTREPRENEURS WHO HAVE INCREASED THEIR BUSINESS PROFITS AND TASTED UNRIVALLED QUALITY SERVICE NOW!!!
+                </h1>
+                <p class="tx-mont tracking-widest leading-20 font-medium text-xl md:text-2xl lg:text-3xl my-5">Elevate
+                    your brand's digital identity with my stunning digital services that captivate your target audience,
+                    make them buy and leave them satisfied.</p>
+            </div>
+            <a href="#projects"
+                class="block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-transparent py-4 px-7 rounded-md font-bold text-2xl tx-mont mr-4 mb-10 floaty3">
+                VIEW PROJECTS <i class="fa fa-angle-down text-4xl ml-1"></i></a>
+        </div>
+
+    </header>
+
+
+    <!-- Main section -->
+    <main class="flex flex-wrap">
+
+        <!-- opening section -->
+        <section class="py-10 px-5">
+            <div class="w-full md:w-9/12 mx-auto">
+                <p class="tx-mont py-4 text-xl md:text-2xl leading-30" style="line-height: 1.5;">If you're a business
+                    entrepreneur, internet marketer, creative designer, media personality and you wants to 10x your
+                    sales profit, build/improve your online brand presence and also stay above your competitors. Then,
+                    you're in the right place.</p>
+                <p class="tx-mont py-4 text-xl md:text-2xl leading-30" style="line-height: 1.5;">With over 5 years experience in
+                    web design and acquiring several internet marketing skills, I've completed huge numbers of projects that meets the unique needs of my clients in various aspects of digital fields such as Web design, Graphic design, Social media ads & Account management, Affiliate
+                    marketing Funnel setup, Ghostwriting gigs, e.t.c</p>
+
+                <p class="mt-10 text-2xl tx-mont leading-8 font-bold tracking-wide text-red-800">
+                    Below are the previous and current projects I've done and still doing for clients. Feel free to go through them before taking action to work with me.
+                </p>
+            </div>
+        </section>
+
+        <!-- web services section -->
+        <section id="projects" class="py-10 px-5 bg-gray-200 w-full md:w-9/12 mx-auto">
+        
+            <div class="mb-4 border-b border-gray-200 dark:border-gray-700 text-center flex justify-center">
+                <ul class="flex flex-wrap -mb-px text-sm font-medium text-center justify-center" id="myTab"
+                    data-tabs-toggle="#myTabContent" role="tablist">
+                    <li class="cursor-pointer mr-2 mt-2 text-lg md:text-2xl tx-mont leading-8 font-bold tracking-wide"
+                        role="presentation">
+                        <a class="inline-block p-4 border-b-2" id="web-design-port" data-tabs-target="#web-design"
+                            type="button" role="tab" aria-controls="web-design" aria-selected="false">Web Design</a>
+                    </li>
+                    <li class="mr-2 mt-2 text-lg md:text-2xl tx-mont leading-8 font-bold tracking-wide"
+                        role="presentation">
+                        <a class="cursor-pointer inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                            id="graphic-design-port" data-tabs-target="#graphic-design" type="button" role="tab"
+                            aria-controls="graphic-design" aria-selected="false">Graphic design</a>
+                    </li>
+                    <!-- <li class="mr-2 mt-2 text-lg md:text-2xl tx-mont leading-8 font-bold tracking-wide"
+                        role="presentation">
+                        <a class="cursor-pointer inline-block p-4 border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+                            id="internet-marketing-tab" data-tabs-target="#internet-marketing" type="button" role="tab"
+                            aria-controls="internet-marketing" aria-selected="false">Internet Marketing</a>
+                    </li> -->
+                </ul>
+            </div>
+            <div id="myTabContent">
+                <!-- web design content -->
+
+                <div class="hidden p-4 rounded-lg bg-gray-200" id="web-design" role="tabpanel"
+                    aria-labelledby="web-design-port">
+                    <p class="mt-4 max-w-3xl text-lg tx-lg text-gray-700 md:mx-auto md:text-center">
+                        Here are my past and recent projects I've executed so far. Take a sneak peak into each. Feel free to pick the project you want
+                        and let me get it done for you as soon as possible:
+                    </p>
+                    <div id="populate-Web" class="md:flex justify-between w-full md:w-3/4 lg:w-3/4 md:p-4 p-0 mx-auto">
+                        
+                    </div>
+                </div>
+
+                <!-- graphic design -->
+
+                <div class="hidden p-4 rounded-lg bg-gray-200 dark:bg-gray-800" id="graphic-design" role="tabpanel"
+                    aria-labelledby="graphic-design-port">
+                    <p class="mt-4 max-w-3xl text-lg tx-lg text-gray-700 md:mx-auto md:text-center">
+                        If you want an eye-catching graphic that would represent your brand and achieve your target goals? Then this is the right place you should be. Kindly go through my previous graphics projects and see why I'm your surest plug.
+                    </p>
+                    <div id="populate-Graphic" class="md:flex justify-between w-full md:w-3/4 lg:w-3/4 md:p-4 p-0 mx-auto">
+                       
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- <div class="bar h-1 w-28 bg-diamond-3 mt-2 mb-10 sm:mx-4 md:mx-auto relative rounded-full">
+            </div> -->
+
+        </section>
+    </main>
+
+
+
+    <button id="scrollToTopBtn"
+        class="hidden fixed bottom-4 right-4 bg-diamond btn-hover text-white h-16 w-16 flex justify-center items-center rounded-full border border-blue-500 shadow-lg transition duration-500 ease-in-out">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Footer section -->
+    <footer class="bg-diamond text-white">
+        <div class="container mx-auto px-4 lg:px-10 py-12 flex flex-wrap justify-between">
+
+            <!-- Personal Info -->
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-6">
+                <h3 class="text-xl font-bold mb-4">Personal Info</h3>
+                <!-- <p class="tx-sm mt-10">Personal Address:</p> -->
+                <a href="https://www.google.com/maps/search/?api=1&query=RMW2%2BQRC+Sagamu" target="_blank">
+                    <p class="my-4"><i class="fas fa-home mr-2"></i> 17b, Araromi street, Baruwa</p>
+                    <p class="my-4"><i class="fas fa-map-marker-alt mr-2"></i> Sagamu, Ogun State, Nigeria</p>
+                </a>
+                <p class="my-4"><i class="fas fa-phone mr-2"></i><a class="text-blue-500" href="tel:+2349036371010">
+                        (+234) 903 637 (Click to call)</a></p>
+            </div>
+
+            <!-- Nav link -->
+            <div class="w-full md:w-1/2 lg:w-1/5 mb-6">
+                <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                <ul>
+                    <li class="my-3"><a href="./index.html" class="link-btn inline-block relative leading-none">Home</a>
+                    </li>
+                    <li class="my-3"><a href="./projects.html"
+                            class="link-btn inline-block relative leading-none">Projects</a></li>
+                    <li class="my-3"><a
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSfBW8peSoZOhmojarMQFOwwZpj-tUlFtez0_B90i52SIkHneQ/viewform"
+                            class="link-btn inline-block relative leading-none">Book A Call</a></li>
+                          
+                    <li class="my-3"><a href="./privacy_policy.html" class="link-btn inline-block relative leading-none"
+                            target="_blank" rel="noopener">Privacy Policy</a></li>
+                    <li class="my-3"><a href="./terms_of_services.html"
+                            class="link-btn inline-block relative leading-none" target="_blank" rel="noopener">Terms of
+                            Service</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-6">
+                <h3 class="text-xl font-bold mb-4">Newsletter</h3>
+                <p class="text-base tx-base tx-base">Sign up for my newsletter and stay up to date with my latest news
+                    and events.</p>
+                <form class="mt-4">
+                    <div class="flex flex-wrap items-center">
+                        <!-- <input type="email" placeholder="Enter your email" class="w-full text-gray-700 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300"> -->
+                        <!-- <button type="submit"
+                            class="mt-4 font-bold py-2 px-4 rounded-md transition duration-300 border border-white text-white btn-hover focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-lg tx-lg">
+                            Subscribe
+                        </button> -->
+                    </div>
+                    <script async data-uid="068724265b" src="https://drisaden.ck.page/068724265b/index.js"></script>
+                </form>
+            </div>
+
+            <!-- Social icons -->
+            <div class="w-full md:w-1/2 lg:w-1/4 mb-6 lg:mx-auto">
+                <h3 class="text-xl font-bold mb-4">Follow me on These Platforms</h3>
+                <div class="flex justify-between">
+                    <a href="https://twitter.com/adenaike_idris" class="text-white hover:text-blue-400" target="_blank"
+                        rel="noopener" title="Twitter">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </a>
+                    <a href="https://m.facebook.com/aden.edriiz/" class="text-white hover:text-blue-600" target="_blank"
+                        rel="noopener" title="Facebook">
+                        <i class="fab fa-facebook fa-2x"></i>
+                    </a>
+                    <a href="https://wa.me/2349036371010?text=Hi,%20I%20want%20to%20know%20more%20about%20you.%20and%20also%20learn%20from%20you.%20Can%20I%20connect%20with%20you?"
+                        class="text-white hover:text-green-500" target="_blank" rel="noopener" title="WhatsApp">
+                        <i class="fab fa-whatsapp fa-2x"></i>
+                    </a>
+                    <a href="https://instagram.com/adenaike_idris" class="text-white hover:text-pink-600"
+                        target="_blank" rel="noopener" title="Instagram">
+                        <i class="fab fa-instagram fa-2x"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/adenaikeidris/" class="text-white hover:text-blue-600"
+                        target="_blank" rel="noopener" title="LinkedIn">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a href="https://github.com/drisaden" class="text-white hover:text-gray-600" target="_blank"
+                        rel="noopener" title="GitHub"><i class="fab fa-github fa-2x"></i></a>
+                    <a href="https://t.me/dris_Jewel" class="text-white hover:text-blue-600" target="_blank"
+                        rel="noopener" title="Telegram"><i class="fab fa-telegram-plane fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 pb-4">
+            <p class="text-sm">&copy; 2024 Adenaike Idris. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="./assets/js/scroll.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+    <script>
+        AOS.init({
+            offset: 200,
+            duration: 1300,
+            delay: 400,
+            once: true
+        });
+
+
+window.onload = function () {
+fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key=AIzaSyAH6Wex5qpSlUeNOds4OvtCSuoUK8c66kY')
+    .then(response => response.json())
+    .then(data => {
+        // console.log(data);
+        const webDesignItems = data.items.filter(item => item.labels.includes('Web-design'));
+        const graphicDesignItems = data.items.filter(item => item.labels.includes('Graphic-design'));
+
+        const populateWebElement = document.getElementById('populate-Web');
+        const populateGraphicElement = document.getElementById('populate-Graphic');
+
+        webDesignItems.forEach(item => {
+            const src = item.content.match(/<img[^>]*src="([^"]*)"/)?.[1];
+            const href = item.content.match(/<a[^>]*href="([^"]*)"/)?.[1];
+
+            populateWebElement.innerHTML +=  
+            `<div class="w-full md:w-1/2 p-4 bg-white shadow-lg my-5">
+            <div class="relative">
+            <img src="${src}" alt="${item.title}"  class="w-full h-64 object-cover mb-4">
+            </div>
+            <a href="${href}" target="_blank"><h2 class="text-xl font-bold mb-2" id="title">${item.title}</h2></a>
+            <p class="flex items-center justify-left mb-4"
+                <span class="flex items-center">
+                            <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                            </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                              
+                        </span>
+                   </p>
+            <!--<p class="text-gray-700 mb-4" id="">${item.content.replace(/<[^>]+>/g, '').split(' ').slice(0, 20).join(' ')}</p>-->
+            <p class="text-gray-700 mb-4">${item.content.match(/<p[^>]*>(.*?)<\/p>/)?.[1]}</p>
+            
+            <a href="${href}" target="_blank"><button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded" id="url">View</button></a>
+        </div>`
+        });
+
+        graphicDesignItems.forEach(item => {
+        const src = item.content.match(/<img[^>]*src="([^"]*)"/)?.[1];
+            const href = item.content.match(/<a[^>]*href="([^"]*)"/)?.[1];
+            
+            populateGraphicElement.innerHTML +=  `<div class="w-full md:w-1/2 p-4 bg-white shadow-lg my-5">
+            <div class="relative">
+            <img src="${src}" alt="${item.title}"  class="w-full h-64 object-cover mb-4">
+            </div>
+            <a href="${href}" target="_blank"><h2 class="text-xl font-bold mb-2" id="title">${item.title}</h2></a>
+            <p class="flex items-center justify-left mb-4"
+                <span class="flex items-center">
+                            <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                            </svg>
+                            <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                            </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                                <svg class="w-4 h-4 text-yellow-500 mr-1" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10 0l3.117 6.383 6.953.998-5.032 4.894 1.186 7.176L10 15.455l-6.224 3.997 1.186-7.176L0.93 7.381 7.883 6.383 10 0z" />
+                                </svg>
+                              
+                        </span>
+                   </p>
+            <!--<p class="text-gray-700 mb-4" id="">${item.content.replace(/<[^>]+>/g, '').split(' ').slice(0, 20).join(' ')}</p>-->
+            <p class="text-gray-700 mb-4">${item.content.match(/<p[^>]*>(.*?)<\/p>/)?.[1]}</p>
+            
+            <a href="${href}" target="_blank"><button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded" id="url">View</button></a>
+        </div>`
+        });
+
+    })
+    .catch(error => {
+        console.log('Error fetching data:', error);
+    });
+
+};
+    </script>
+</body>
+
+</html>
