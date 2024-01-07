@@ -415,13 +415,13 @@ window.onload = function () {
             // Create option element for 'from' currency
             const fromOption = document.createElement('option');
             fromOption.value = currency;
-            fromOption.innerHTML = `${symbolData.symbols[currency]}(${currency})`;
+            fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
             fromCurrencySelect.appendChild(fromOption);
 
             // Create option element for 'to' currency
             const toOption = document.createElement('option');
             toOption.value = currency;
-            toOption.innerHTML = `${symbolData.symbols[currency]}(${currency})`;
+            toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
             toCurrencySelect.appendChild(toOption);
           }
 
