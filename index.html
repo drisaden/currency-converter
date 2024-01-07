@@ -146,19 +146,19 @@
     
         <div
                 class="text-center w-full md:w-11/12 h-max mt-20 mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg">
-           <div class="flex flex-wrap justify-evenly align-center gap-3">
-             <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</p>
-              <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</p>
-               <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</p>
-                <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">4</p>
-                 <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">5</p>
-                  <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">6</p>
-                   <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">1</p>
-                    <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</p>
-                     <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</p>
-                      <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</p>
-                       <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</p>
-                        <p class="w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></p>
+           <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
+             <button id="seven" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
+              <button id="eight" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
+               <button id="nine" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</button>
+                <button id="four" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">4</button>
+                 <button id="five" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">5</button>
+                  <button id="six" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">6</button>
+                   <button id="one" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">1</button>
+                    <button id="two" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</button>
+                     <button id="three" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
+                      <button id="zero" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
+                       <button id="dot" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
+                        <button id="deleteIcon" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
             
            </div>  
              </div>
@@ -395,6 +395,58 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
 };*/
 
 window.onload = function () {
+  // Function to handle keyboard button clicks
+  function handleKeyboardClick(value) {
+    const activeInput = document.activeElement;
+    if (activeInput.tagName === 'INPUT') {
+      activeInput.value += value;
+    }
+  }
+
+  // Function to handle backspace button click
+  function handleBackspaceClick() {
+    const activeInput = document.activeElement;
+    if (activeInput.tagName === 'INPUT') {
+      activeInput.value = activeInput.value.slice(0, -1);
+    }
+  }
+
+  // Add event listeners to each keyboard button
+  const sevenButton = document.getElementById('seven');
+  sevenButton.addEventListener('click', () => handleKeyboardClick('7'));
+
+  const eightButton = document.getElementById('eight');
+  eightButton.addEventListener('click', () => handleKeyboardClick('8'));
+
+  const nineButton = document.getElementById('nine');
+  nineButton.addEventListener('click', () => handleKeyboardClick('9'));
+
+  const fourButton = document.getElementById('four');
+  fourButton.addEventListener('click', () => handleKeyboardClick('4'));
+
+  const fiveButton = document.getElementById('five');
+  fiveButton.addEventListener('click', () => handleKeyboardClick('5'));
+
+  const sixButton = document.getElementById('six');
+  sixButton.addEventListener('click', () => handleKeyboardClick('6'));
+
+  const oneButton = document.getElementById('one');
+  oneButton.addEventListener('click', () => handleKeyboardClick('1'));
+
+  const twoButton = document.getElementById('two');
+  twoButton.addEventListener('click', () => handleKeyboardClick('2'));
+
+  const threeButton = document.getElementById('three');
+  threeButton.addEventListener('click', () => handleKeyboardClick('3'));
+
+  const zeroButton = document.getElementById('zero');
+  zeroButton.addEventListener('click', () => handleKeyboardClick('0'));
+
+  const dotButton = document.getElementById('dot');
+  dotButton.addEventListener('click', () => handleKeyboardClick('.'));
+
+  const deleteButton = document.getElementById('deleteIcon');
+  deleteButton.addEventListener('click', handleBackspaceClick);
   
   // Function to swap values between two elements
   function swapValues(element1, element2) {
