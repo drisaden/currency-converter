@@ -122,7 +122,7 @@
               </select>
                <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="amountInput" value="" placeholder="12331"/>
               </div>
-              <p class="text-center text-sm tx-mont font-medium my-8">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></p>
+              <button id="exchange" class="text-center text-sm tx-mont font-medium my-8">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
               
             <div class="flex my-5 mb-20 mx-3 gap-2">
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
@@ -395,6 +395,29 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
 };*/
 
 window.onload = function () {
+  
+  // Function to swap values between two elements
+  function swapValues(element1, element2) {
+    const tempValue = element1.value;
+    element1.value = element2.value;
+    element2.value = tempValue;
+  }
+
+  // Add event listener to the Exchange button
+  const exchangeButton = document.getElementById('exchange');
+  exchangeButton.addEventListener('click', () => {
+    // Get the elements to be swapped
+    const fromCurrencySelect = document.getElementById('fromCurrency');
+    const toCurrencySelect = document.getElementById('toCurrency');
+    const fromAmountInput = document.getElementById('fromAmountInput');
+    const toAmountInput = document.getElementById('toAmountInput');
+
+    // Swap values between 'from' and 'to' select elements
+    swapValues(fromCurrencySelect, toCurrencySelect);
+
+    // Swap values between 'from' and 'to' amount input elements
+    swapValues(fromAmountInput, toAmountInput);
+  });
   // Fetch the currency data (exchange rates)
   fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
   .then(response => response.json())
