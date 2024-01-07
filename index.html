@@ -128,7 +128,7 @@
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
                 <option value="NGN" class="pl-3"><span class="mx-3 block">NGN</span></option>
               </select>
-              <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331"/>
+              <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331" disabled/>
             </div>
              
             <button type="submit" id="convertButton" href="#"
@@ -397,18 +397,24 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
 window.onload = function () {
   // Function to handle keyboard button clicks
   function handleKeyboardClick(value) {
-    const activeInput = document.activeElement;
-    if (activeInput.tagName === 'INPUT') {
-      activeInput.value += value;
+    const amountInput = document.getElementById('amountInput');
+
+    if (value === '.') {
+      // Check if there's already a dot in the input
+      if (amountInput.value.indexOf('.') === -1) {
+        amountInput.value += value;
+        console.log('Current value after dot click:', amountInput.value);
+      }
+    } else {
+      amountInput.value += value;
+      console.log('Current value after dot clicked again:', amountInput.value);
     }
   }
 
-  // Function to handle backspace button click
+// Function to handle backspace button click
   function handleBackspaceClick() {
-    const activeInput = document.activeElement;
-    if (activeInput.tagName === 'INPUT') {
-      activeInput.value = activeInput.value.slice(0, -1);
-    }
+    const amountInput = document.getElementById('amountInput');
+    amountInput.value = amountInput.value.slice(0, -1);
   }
 
   // Add event listeners to each keyboard button
@@ -447,7 +453,8 @@ window.onload = function () {
 
   const deleteButton = document.getElementById('deleteIcon');
   deleteButton.addEventListener('click', handleBackspaceClick);
-  
+
+
   // Function to swap values between two elements
   function swapValues(element1, element2) {
     const tempValue = element1.value;
