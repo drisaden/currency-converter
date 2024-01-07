@@ -113,12 +113,14 @@
              <div
                 class="text-center w-full h-max mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg rounded-md relative">
              <p class="mb-4 font-light tx-mont text-sm">Choose the two currencies you're converting</p>
+             
+             
             <div class="flex mt-10 mx-3 gap-2">
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
                 <option value="" class="pl-3"><span class="mx-3 block">
 </span>USD</span></option>
               </select>
-               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="" value="" placeholder="12331"/>
+               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="amountInput" value="" placeholder="12331"/>
               </div>
               <p class="text-center text-sm tx-mont font-medium my-8">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></p>
               
@@ -126,12 +128,13 @@
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
                 <option value="" class="pl-3"><span class="mx-3 block">NGN</span></option>
               </select>
-              <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="" value="" placeholder="12331"/>
+              <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331"/>
             </div>
              
-            <button type="submit" href="#projects"
+            <button type="submit" id="convertButton" href="#"
                 class="ml-2 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-transparent py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
                 Convert <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
+                
                 </div>
              </div>
   </div>
@@ -400,17 +403,19 @@ window.onload = function () {
       return fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
         .then(response => response.json())
         .then(symbolData => {
-          // Get the select elements
+          // Get the select elements and convert button
           const fromCurrencySelect = document.querySelector('#fromCurrency');
           const toCurrencySelect = document.querySelector('#toCurrency');
+          const convertButton = document.querySelector('#convertButton');
+          const inputAmount = document.querySelector('#amountInput');
+          const resultInput = document.querySelector('#resultInput');
 
           // Populate the options in the select elements
           for (const currency in data.rates) {
             // Create option element for 'from' currency
             const fromOption = document.createElement('option');
             fromOption.value = currency;
-            fromOption.innerHTML = `${symbolData.symbols[currency]
-            }(${currency})`;
+            fromOption.innerHTML = `${symbolData.symbols[currency]}(${currency})`;
             fromCurrencySelect.appendChild(fromOption);
 
             // Create option element for 'to' currency
@@ -419,6 +424,21 @@ window.onload = function () {
             toOption.innerHTML = `${symbolData.symbols[currency]}(${currency})`;
             toCurrencySelect.appendChild(toOption);
           }
+
+          // Add event listener to the convert button
+          convertButton.addEventListener('click', () => {
+            // Get selected currencies and amount
+            const fromCurrency = fromCurrencySelect.value;
+            const toCurrency = toCurrencySelect.value;
+            const amount = parseFloat(inputAmount.value);
+
+            // Perform conversion
+            const conversionRate = data.rates[toCurrency] / data.rates[fromCurrency];
+            const convertedAmount = amount * conversionRate;
+
+            // Display the result
+            resultInput.value = convertedAmount.toFixed(2); // Displaying up to two decimal places
+          });
         });
   })
   .catch(error => {
