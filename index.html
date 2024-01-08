@@ -292,38 +292,45 @@
     }
   }
   
-  window.onload = () => {
-  // Fetch the currency data (exchange rates)
-  fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
-    .then(response => response.json())
-    .then(data => {
-      exchangeRates = data.rates;
-      // Fetch the currency names and codes
-      return fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
-    })
-    .then(response => response.json())
-    .then(symbolData => {
-      // Get the select elements and convert button
-      const fromCurrencySelect = document.querySelector('#fromCurrency');
-      const toCurrencySelect = document.querySelector('#toCurrency');
-      const convertButton = document.querySelector('#convertButton');
-      const inputAmount = document.querySelector('#display');
-      const resultInput = document.querySelector('#resultInput');
+  window.onload = async () => {
+  try {
+    // Fetch the currency data (exchange rates)
+    const exchangeResponse = await fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
+    if (!exchangeResponse.ok) {
+      throw new Error('Error fetching exchange rates');
+    }
+    const exchangeData = await exchangeResponse.json();
+    exchangeRates = exchangeData.rates;
 
-      // Populate the options in the select elements
-      for (const currency in exchangeRates) {
-        // Create option element for 'from' currency
-        const fromOption = document.createElement('option');
-        fromOption.value = currency;
-        fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-        fromCurrencySelect.appendChild(fromOption);
+    // Fetch the currency names and codes
+    const symbolResponse = await fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
+    if (!symbolResponse.ok) {
+      throw new Error('Error fetching symbols');
+    }
+    const symbolData = await symbolResponse.json();
 
-        // Create option element for 'to' currency
-        const toOption = document.createElement('option');
-        toOption.value = currency;
-        toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-        toCurrencySelect.appendChild(toOption);
-      }
+    // Get the select elements and convert button
+    const fromCurrencySelect = document.querySelector('#fromCurrency');
+    const toCurrencySelect = document.querySelector('#toCurrency');
+    const convertButton = document.querySelector('#convertButton');
+    const inputAmount = document.querySelector('#display');
+    const resultInput = document.querySelector('#resultInput');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+    // Populate the options in the select elements
+    for (const currency in exchangeData.rates) {
+      // Create option element for 'from' currency
+      const fromOption = document.createElement('option');
+      fromOption.value = currency;
+      fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
+      fromCurrencySelect.appendChild(fromOption);
+
+      // Create option element for 'to' currency
+      const toOption = document.createElement('option');
+      toOption.value = currency;
+      toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
+      toCurrencySelect.appendChild(toOption);
+    }
 
       // Add event listener to the convert button
       convertButton.addEventListener('click', () => {
@@ -360,10 +367,9 @@
           resultsContainer.appendChild(resultElement);
         });
       });
-    })
-    .catch(error => {
-      console.log('Error fetching data:', error);
-    });
+} catch (error) {
+    console.log('Error:', error);
+  }
 };
 
   
