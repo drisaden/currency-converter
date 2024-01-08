@@ -115,7 +115,7 @@
              <p class="mb- font-light tx-mont text-sm">Choose the two currencies you're converting</p>
              
              
-            <div class="flex mt-8 mx-3 gap-2">
+            <div class="flex mt-10 mx-3 gap-2">
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
                 <option value="USD" class="pl-3"><span class="mx-3 block">
 </span>USD</span></option>
@@ -137,7 +137,7 @@
             </div>
              
             <button type="submit" id="convertButton" href="#"
-                class="ml-5 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-transparent py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
+                class="ml-5 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-blue-100 py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
                 Convert <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
                 
                 </div>
@@ -271,9 +271,12 @@
     </footer>
 
 
+
+    <script type="text/javascript" charset="utf-8" src="https://adenaikeidris.com.ng/assets/js/main.js">
+      
+    </script>
     <script>
-   // window.onload = function () {
-    //window.onload = convertCurrency;
+   
 
    function toggleBreakdown() {
     const breakdownDiv = document.getElementById('breakdown');
@@ -394,20 +397,7 @@
             toCurrencySelect.appendChild(toOption);
           }
 
-          // Add event listener to the convert button
-         /* convertButton.addEventListener('click', () => {
-            // Get selected currencies and amount
-            const fromCurrency = fromCurrencySelect.value;
-            const toCurrency = toCurrencySelect.value;
-            const amount = parseFloat(inputAmount.value);
-
-            // Perform conversion
-            const conversionRate = data.rates[toCurrency] / data.rates[fromCurrency];
-            const convertedAmount = amount * conversionRate;
-
-            // Display the result
-            resultInput.value = convertedAmount.toFixed(2); // Displaying up to two decimal places
-          });*/
+          
        convertButton.addEventListener('click', () => {
   // Get selected currencies and amount
   const fromCurrency = fromCurrencySelect.value;
@@ -454,9 +444,6 @@
   });
 
 
-    </script>
-    <script type="text/javascript" charset="utf-8" src="https://adenaikeidris.com.ng/assets/js/main.js">
-      
     </script>
 </body>
 
