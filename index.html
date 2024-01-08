@@ -177,7 +177,7 @@
             
            </div>
        </div>
-
+<div id="resultsContainer"></div>
     
    </main>
 
@@ -272,7 +272,10 @@
 
 
     <script>
-    function toggleBreakdown() {
+   // window.onload = function () {
+    //window.onload = convertCurrency;
+
+   function toggleBreakdown() {
     const breakdownDiv = document.getElementById('breakdown');
     const caretIcon = document.getElementById('caretIcon');
     const toggleText = document.getElementById('toggleText');
@@ -363,6 +366,7 @@
   fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
   .then(response => response.json())
   .then(data => {
+    exchangeRates = data.rates;
       // Fetch the currency names and codes
       return fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
         .then(response => response.json())
@@ -374,6 +378,7 @@
           const inputAmount = document.querySelector('#display');
           const resultInput = document.querySelector('#resultInput');
 
+      
           // Populate the options in the select elements
           for (const currency in data.rates) {
             // Create option element for 'from' currency
@@ -390,7 +395,7 @@
           }
 
           // Add event listener to the convert button
-          convertButton.addEventListener('click', () => {
+         /* convertButton.addEventListener('click', () => {
             // Get selected currencies and amount
             const fromCurrency = fromCurrencySelect.value;
             const toCurrency = toCurrencySelect.value;
@@ -402,12 +407,52 @@
 
             // Display the result
             resultInput.value = convertedAmount.toFixed(2); // Displaying up to two decimal places
-          });
-        });
+          });*/
+       convertButton.addEventListener('click', () => {
+  // Get selected currencies and amount
+  const fromCurrency = fromCurrencySelect.value;
+  const amount = parseFloat(inputAmount.value);
+
+  // Create an array to store converted amounts
+  const convertedAmounts = [];
+
+  // Convert selected currency and store the result
+  const selectedConversionRate = exchangeRates[toCurrencySelect.value] / exchangeRates[fromCurrency];
+  const selectedConvertedAmount = amount * selectedConversionRate;
+  resultInput.value = selectedConvertedAmount;
+  convertedAmounts.push({ currency: toCurrencySelect.value, amount: selectedConvertedAmount.toFixed(2) });
+
+  // Convert into other currencies
+  for (const currency in exchangeRates) {
+    if (currency !== fromCurrency && currency !== toCurrencySelect.value) {
+      const conversionRate = exchangeRates[currency] / exchangeRates[fromCurrency];
+      const convertedAmount = amount * conversionRate;
+      convertedAmounts.push({ currency, amount: convertedAmount.toFixed(2) });
+    }
+  }
+
+  // Display the results
+  const resultsContainer = document.getElementById('resultsContainer');
+  resultsContainer.innerHTML = ''; // Clear previous results
+
+  convertedAmounts.slice(1).forEach(result => {
+  const resultElement = document.createElement('div');
+  const currencyName = symbolData.symbols[result.currency];
+  resultElement.innerHTML = `Converted to ${result.currency} (${currencyName}): ${result.amount}`;
+  resultsContainer.appendChild(resultElement);
+});
+
+
+         
+       });
+
+       
+        })
   })
   .catch(error => {
       console.log('Error fetching data:', error);
   });
+
 
     </script>
     <script type="text/javascript" charset="utf-8" src="https://adenaikeidris.com.ng/assets/js/main.js">
