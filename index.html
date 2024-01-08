@@ -111,11 +111,11 @@
                 
             </div>
              <div
-                class="text-center w-full h-max mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg rounded-md relative">
-             <p class="mb-4 font-light tx-mont text-sm">Choose the two currencies you're converting</p>
+                class="text-center w-full h-max mt-10 mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg rounded-md relative">
+             <p class="mb- font-light tx-mont text-sm">Choose the two currencies you're converting</p>
              
              
-            <div class="flex mt-10 mx-3 gap-2">
+            <div class="flex mt-8 mx-3 gap-2">
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
                 <option value="USD" class="pl-3"><span class="mx-3 block">
 </span>USD</span></option>
@@ -127,9 +127,9 @@
        type="text" oninput="validateInput(this)">
 
               </div>
-              <button id="exchange" class="text-center text-sm tx-mont font-medium my-8 p-5 focus:outline-none focus:ring-1">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
+              <button id="exchange" class="text-center text-sm tx-mont font-medium m-3 p-3 focus:outline-none focus:ring-1">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
               
-            <div class="flex my-5 mb-20 mx-3 gap-2">
+            <div class="flex mb-10 mx-3 gap-2">
               <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
                 <option value="NGN" class="pl-3"><span class="mx-3 block">NGN</span></option>
               </select>
@@ -137,7 +137,7 @@
             </div>
              
             <button type="submit" id="convertButton" href="#"
-                class="ml-2 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-transparent py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
+                class="ml-5 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-transparent py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
                 Convert <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
                 
                 </div>
@@ -148,9 +148,19 @@
 
 
    <main class="px-10">
-    
-        <div
-                class="text-center w-full md:w-11/12 h-max mt-20 mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg">
+    <div class="mx-auto flex justify-center">
+  <button 
+      class="mt-10 cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium"
+      onclick="toggleBreakdown()">
+     <span>
+            <span id="toggleText">Show</span> keyboard
+            <i data-accordion-icon id="caretIcon" class="fa fa-caret-down ml-2"></i>
+          </span>
+  </button>
+</div>
+
+<div class="text-center w-full md:w-11/12 h-max mt-5 mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg hidden" id="breakdown">
+  
               <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
              <button id="seven" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
               <button id="eight" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
@@ -172,7 +182,7 @@
    </main>
 
     <!-- Footer section -->
-    <footer class="bg-diamond text-white">
+    <footer class="mt-20 bg-diamond text-white">
         <div class="container mx-auto px-4 lg:px-10 py-12 flex flex-wrap justify-between">
 
             <!-- Personal Info -->
@@ -262,6 +272,22 @@
 
 
     <script>
+    function toggleBreakdown() {
+    const breakdownDiv = document.getElementById('breakdown');
+    const caretIcon = document.getElementById('caretIcon');
+    const toggleText = document.getElementById('toggleText');
+
+    if (breakdownDiv.style.display === 'none' || breakdownDiv.style.display === '') {
+      breakdownDiv.style.display = 'block';
+      caretIcon.className = 'fa fa-caret-up ml-2';
+      toggleText.innerText = 'Hide';
+    } else {
+      breakdownDiv.style.display = 'none';
+      caretIcon.className = 'fa fa-caret-down ml-2';
+      toggleText.innerText = 'Show';
+    }
+  }
+  
 
  let display = document.getElementById('display');
  function validateInput(input) {
