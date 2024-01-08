@@ -158,11 +158,30 @@
                      <button id="three" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
                       <button id="zero" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
                        <button id="dot" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
-                        <button id="deleteIcon" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+                        <button id="deleteIcon" class="delete-icon w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
             
            </div>  
              </div>
        
+
+ <!-- <div class="calculator">
+    <div class="calculator__display">0</div>
+    <button class="calculator__key calculator__key--operator" data-action="add">+</button>
+    <button class="calculator__key">7</button>
+    <button class="calculator__key">8</button>
+    <button class="calculator__key">9</button>
+    <button class="calculator__key">4</button>
+    <button class="calculator__key">5</button>
+    <button class="calculator__key">6</button>
+    <button class="calculator__key">1</button>
+    <button class="calculator__key">2</button>
+    <button class="calculator__key">3</button>
+    <button class="calculator__key">0</button>
+    <button class="calculator__key" data-action="decimal">.</button>
+    
+    <button class="calculator__key calculator__key--equal" data-action="calculate">=</button>
+  </div>-->
+    <!--<input class="calculator__display text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="amountInput" value="" placeholder="12331"/>-->
 
     
    </main>
@@ -258,8 +277,32 @@
 
 
     <script>
-       
+    document.addEventListener("DOMContentLoaded", function() {
+  const amountInput = document.getElementById("amountInput");
+  const buttons = document.querySelectorAll(".keyboard button");
 
+  buttons.forEach(button => {
+    button.addEventListener("click", function() {
+      const buttonText = button.innerText;
+      const deleteButton = document.getElementById('deleteIcon');
+
+      if (buttonText === "0" || buttonText === "1" || buttonText === "2" ||
+          buttonText === "3" || buttonText === "4" || buttonText === "5" ||
+          buttonText === "6" || buttonText === "7" || buttonText === "8" ||
+          buttonText === "9" || buttonText === ".") {
+        amountInput.value += buttonText;
+      } else if (deleteButton.classList.contains('delete-icon')) {
+        // Backspace functionality
+        amountInput.value = amountInput.value.slice(0, -1);
+      }
+    });
+  });
+});
+
+       
+    // JavaScript code for adding the functionality to the calculator
+    // Get the calculator element
+    
 
 /*window.onload = function () {
 fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key=AIzaSyAH6Wex5qpSlUeNOds4OvtCSuoUK8c66kY')
@@ -394,30 +437,135 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
   });
 };*/
 
-window.onload = function () {
+/*  window.onload = function () {
+  // Variables to store operands and operator
+  let firstOperand = '';
+  let operator = '';
+  let lastOperand = '';
+
   // Function to handle keyboard button clicks
   function handleKeyboardClick(value) {
     const amountInput = document.getElementById('amountInput');
-
-    if (value === '.') {
-      // Check if there's already a dot in the input
-      if (amountInput.value.indexOf('.') === -1) {
-        amountInput.value += value;
-        console.log('Current value after dot click:', amountInput.value);
-      }
+    
+    // Check if the dot is already clicked
+    if (operator === '.') {
+      lastOperand += value;
     } else {
-      amountInput.value += value;
-      console.log('Current value after dot clicked again:', amountInput.value);
+      // If dot is not clicked, treat the value as part of the first operand
+      firstOperand += value;
     }
+
+    // Update the input field
+    amountInput.value += value;
   }
 
+  // Function to handle dot button click
+  function handleDotClick() {
+    const amountInput = document.getElementById('amountInput');
+
+    // Check if the dot is already clicked
+    if (operator === '') {
+      operator = '.';
+      // Add dot to the input field
+      amountInput.value += operator;
+      console.log(operator)
+    }
+  }
+  // Function to handle keyboard button clicks
+
+ /* function handleKeyboardClick(value) {
+    const amountInput = document.getElementById('amountInput');
+    
+      amountInput.value += value;
+     //console.log('Current value after dot click:', amountInput.value)
+    
+  }*/
+
+  // Function to handle decimal key click
+  /*function handleDecimalClick() {
+    const amountInput = document.getElementById('amountInput');
+    const currentValue = amountInput.value;
+
+    // Check if there's already a dot in the input
+    if (!currentValue.includes('.')) {
+      // Append a decimal point along with existing values
+      amountInput.value = currentValue + '.';
+      console.log('Current value after dot click:', amountInput.value);
+    }
+  }*/
+  
+  // If the key is a decimal key
+      /*  if (action === 'decimal') {
+          // If the display does not contain a decimal point, append a decimal point
+          if (!currentValue.includes('.')) {
+            amountInput.value = currentValue + '.';
+          }
+          // If the previous key was an operator or equal key, replace the display with '0.'
+          if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+            amountInput.value = '0.';
+          }
+          // Update the previous key type
+          calculator.dataset.previousKeyType = 'decimal';
+        }
+        
+*/
+// If the key is a decimal key
+  /* function handleDecimalKey() {
+    const amountInput = document.getElementById('amountInput');
+    const currentValue = amountInput.value;
+    const previousKeyType = amountInput.dataset.previousKeyType;
+
+    // If the display does not contain a decimal point, append a decimal point
+    if (!currentValue.includes('.')) {
+      amountInput.value = currentValue + '.';
+    }
+    // If the previous key was an operator or equal key, replace the display with '0.'
+    if (previousKeyType === 'amountInput.value' || previousKeyType === '0') {
+      amountInput.value = '0.';
+    }
+    // Update the previous key type
+    amountInput.dataset.previousKeyType = 'decimal';
+  }
+
+  // You need to add an event listener to the dot button
+  const dotButton = document.getElementById('dot');
+  dotButton.addEventListener('click', handleDecimalKey);
+};
+*/
 // Function to handle backspace button click
-  function handleBackspaceClick() {
+  /*function handleBackspaceClick() {
     const amountInput = document.getElementById('amountInput');
     amountInput.value = amountInput.value.slice(0, -1);
   }
 
   // Add event listeners to each keyboard button
+  /*const dotButton = document.getElementById('dot');
+  dotButton.addEventListener('click', (valueT)=> {
+    //const amountInput = document.getElementById('amountInput');
+    const currentValue = document.getElementById('amountInput').value;
+    console.log(currentValue)
+    //console.log(dotButton)
+    const dotText = dotButton.innerText;
+    // Check if there's already a dot in the input
+    //if (!currentValue.includes('.')) {
+      // Append a decimal point along with existing values
+      valueT = currentValue + dotText;
+      console.log('Current value after dot click:', valueT);
+  //  }
+  });
+  */
+  
+  /*function handleIT(valueT) {
+    const amountInput = document.getElementById('amountInput');
+    if(amountInput.value != ""){
+    valueT = amountInput.value + '.';
+    console.log('value: '+valueT);
+      
+    }
+  }*/
+  /*const dotButton = document.getElementById('dot');
+  dotButton.addEventListener('click', handleDotClick);
+
   const sevenButton = document.getElementById('seven');
   sevenButton.addEventListener('click', () => handleKeyboardClick('7'));
 
@@ -447,9 +595,6 @@ window.onload = function () {
 
   const zeroButton = document.getElementById('zero');
   zeroButton.addEventListener('click', () => handleKeyboardClick('0'));
-
-  const dotButton = document.getElementById('dot');
-  dotButton.addEventListener('click', () => handleKeyboardClick('.'));
 
   const deleteButton = document.getElementById('deleteIcon');
   deleteButton.addEventListener('click', handleBackspaceClick);

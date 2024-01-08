@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    /* CSS code for styling the calculator */
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+      grid-gap: 10px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .calculator__display {
+      grid-column: 1 / span 4;
+      grid-row: 1;
+      background-color: #fff;
+      display: flex;
+      align-items: flex-end;
+      justify-content: right;
+      padding: 10px;
+      font-size: 4em;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .calculator__key {
+      border-radius: 10px;
+      font-size: 2em;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .calculator__key--operator {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .calculator__key--equal {
+      background-color: #f00;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="calculator__display">0</div>
+    <button class="calculator__key calculator__key--operator" data-action="add">+</button>
+    <button class="calculator__key calculator__key--operator" data-action="subtract">-</button>
+    <button class="calculator__key calculator__key--operator" data-action="multiply">×</button>
+    <button class="calculator__key calculator__key--operator" data-action="divide">÷</button>
+    <button class="calculator__key">7</button>
+    <button class="calculator__key">8</button>
+    <button class="calculator__key">9</button>
+    <button class="calculator__key">4</button>
+    <button class="calculator__key">5</button>
+    <button class="calculator__key">6</button>
+    <button class="calculator__key">1</button>
+    <button class="calculator__key">2</button>
+    <button class="calculator__key">3</button>
+    <button class="calculator__key">0</button>
+    <button class="calculator__key" data-action="decimal">.</button>
+    <button class="calculator__key" data-action="clear">AC</button>
+    <button class="calculator__key calculator__key--equal" data-action="calculate">=</button>
+  </div>
+  <script>
+    // JavaScript code for adding the functionality to the calculator
+    // Get the calculator element
+    const calculator = document.querySelector('.calculator');
+
+    // Get the display element
+    const display = calculator.querySelector('.calculator__display');
+
+    // Get all the keys
+    const keys = calculator.querySelectorAll('.calculator__key');
+
+    // Listen for clicks on the keys
+    keys.forEach(key => {
+      key.addEventListener('click', event => {
+        // Get the clicked key
+        const key = event.target;
+
+        // Get the data-action attribute of the key
+        const action = key.dataset.action;
+
+        // Get the current displayed number
+        const displayedNum = display.textContent;
+
+        // Get the previous key pressed
+        const previousKeyType = calculator.dataset.previousKeyType;
+
+        // If the key is a number key
+        if (!action) {
+          // If the display shows 0 or the previous key was an operator or equal key, replace the display with the clicked number
+          if (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate') {
+            display.textContent = key.textContent;
+          } else {
+            // Otherwise, append the clicked number to the display
+            display.textContent = displayedNum + key.textContent;
+          }
+          // Update the previous key type
+          calculator.dataset.previousKeyType = 'number';
+        }
+
+        // If the key is a decimal key
+        if (action === 'decimal') {
+          // If the display does not contain a decimal point, append a decimal point
+          if (!displayedNum.includes('.')) {
+            display.textContent = displayedNum + '.';
+          }
+          // If the previous key was an operator or equal key, replace the display with '0.'
+          if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+            display.textContent = '0.';
+          }
+          // Update the previous key type
+          calculator.dataset.previousKeyType = 'decimal';
+        }
+
+        // If the key is an operator key
+        if (action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide') {
+          // Get the first operand
+          const firstValue = calculator.dataset.firstValue;
+
+          // Get the operator
+          const operator = calculator.dataset.operator;
+
+          // Get the second operand
+          const secondValue = displayedNum;
+
+          // If the first operand and operator exist and the previous key was not an operator or equal key, calculate the result
+          if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
+            // Perform the calculation
+            const result = calculate(firstValue, operator, secondValue);
+
+            // Display the result
+            display.textContent = result;
+
+            // Update the first operand with the result
+            calculator.dataset.firstValue = result;
+          } else {
+            // Otherwise, update the first operand with the current displayed number
+            calculator.dataset.firstValue = displayedNum;
+          }
+
+          // Update the previous key type
+          calculator.dataset.previousKeyType = 'operator';
+
+          // Update the operator
+          calculator.dataset.operator = action;
+        }
+
+        // If the key is an equal key
+        if (action === 'calculate') {
+          // Get the first operand
+          const firstValue = calculator.dataset.firstValue;
+
+          // Get the operator
+          const operator = calculator.dataset.operator;
+
+          // Get the second operand
+          const secondValue = displayedNum;
+
+          // If the first operand, operator and second operand exist, perform the calculation
+          if (firstValue && operator && secondValue) {
+            // Perform the calculation
+            const result = calculate(firstValue, operator, secondValue);
+
+            // Display the result
+            display.textContent = result;
+
+            // Update the first operand with the result
+            calculator.dataset.firstValue = result;
+          }
+
+          // Update the previous key type
+          calculator.dataset.previousKeyType = 'calculate';
+        }
+
+        // If the key is a clear key
+        if (action === 'clear') {
+          // Reset the calculator
+          resetCalculator();
+        }
+      });
+    });
+
+    // Define a function to perform the calculation
+    function calculate(firstValue, operator, secondValue) {
+      // Convert the string values to numbers
+      firstValue = parseFloat(firstValue);
+      secondValue = parseFloat(secondValue);
+
+      // Perform the calculation based on the operator
+      switch (operator) {
+        case 'add':
+          return firstValue + secondValue;
+        case 'subtract':
+          return firstValue - secondValue;
+        case 'multiply':
+          return firstValue * secondValue;
+        case 'divide':
+          return firstValue / secondValue;
+      }
+    }
+
+    // Define a function to reset the calculator
+    function resetCalculator() {
+      // Reset the display to 0
+      display.textContent = '0';
+
+      // Remove the data attributes
+      calculator.dataset.firstValue = '';
+      calculator.dataset.operator = '';
+      calculator.dataset.previousKeyType = '';
+    }
+  </script>
+
+</body>
+
+</html>
