@@ -120,7 +120,12 @@
                 <option value="USD" class="pl-3"><span class="mx-3 block">
 </span>USD</span></option>
               </select>
-               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="amountInput" value="" placeholder="12331"/>
+<input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" 
+       id="display" 
+       value="" 
+       placeholder="1233.1" 
+       type="text" oninput="validateInput(this)">
+
               </div>
               <button id="exchange" class="text-center text-sm tx-mont font-medium my-8">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
               
@@ -146,7 +151,7 @@
     
         <div
                 class="text-center w-full md:w-11/12 h-max mt-20 mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg">
-           <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
+              <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
              <button id="seven" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
               <button id="eight" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
                <button id="nine" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</button>
@@ -157,12 +162,11 @@
                     <button id="two" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</button>
                      <button id="three" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
                       <button id="zero" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
-                       <button id="dot" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
+                       <button id="dotPeriod" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
                         <button id="deleteIcon" class="delete-icon w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
             
-           </div>  
-             </div>
-       
+           </div>
+       </div>
 
  <!-- <div class="calculator">
     <div class="calculator__display">0</div>
@@ -277,32 +281,25 @@
 
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
   const amountInput = document.getElementById("amountInput");
   const buttons = document.querySelectorAll(".keyboard button");
+  const deleteButton = document.getElementById('deleteIcon');
 
   buttons.forEach(button => {
     button.addEventListener("click", function() {
       const buttonText = button.innerText;
-      const deleteButton = document.getElementById('deleteIcon');
 
-      if (buttonText === "0" || buttonText === "1" || buttonText === "2" ||
-          buttonText === "3" || buttonText === "4" || buttonText === "5" ||
-          buttonText === "6" || buttonText === "7" || buttonText === "8" ||
-          buttonText === "9" || buttonText === ".") {
+      if (buttonText === "." || !isNaN(parseFloat(buttonText))) {
         amountInput.value += buttonText;
-      } else if (deleteButton.classList.contains('delete-icon')) {
+      } else if (button === deleteButton) {
         // Backspace functionality
         amountInput.value = amountInput.value.slice(0, -1);
       }
     });
   });
-});
+});*/
 
-       
-    // JavaScript code for adding the functionality to the calculator
-    // Get the calculator element
-    
 
 /*window.onload = function () {
 fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key=AIzaSyAH6Wex5qpSlUeNOds4OvtCSuoUK8c66kY')
@@ -598,7 +595,57 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
 
   const deleteButton = document.getElementById('deleteIcon');
   deleteButton.addEventListener('click', handleBackspaceClick);
+*/
+ let display = document.getElementById('display');
+ function validateInput(input) {
+   // Replace any non-numeric characters and more than one period
+   input.value = input.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+ }
+/* display.addEventListener('input', () => {
+      // Remove non-numeric characters and update the input value
+      display.value = display.value.replace(/[^0-9]/g, '');
+    });*/
+    let periodClicked = false;
 
+    const addToDisplay = (value) => {
+      if (value === '.' && (periodClicked || display.value === '')) {
+        return; // Prevent clicking period first or more than once
+      }
+      display.value += value;
+      if (value === '.') {
+        periodClicked = true;
+      }
+    }
+
+    const addPeriod = () => {
+      addToDisplay('.');
+    }
+
+    const backspace = () => {
+      display.value = display.value.slice(0, -1);
+      periodClicked = false; // Reset periodClicked when backspacing
+    }
+    const getResultAsNumber = () => {
+  return parseFloat(display.value); // Converts the string to a floating-point number
+}
+
+// Event listeners
+    document.getElementById('one').addEventListener('click', () => addToDisplay('1'));
+    document.getElementById('two').addEventListener('click', () => addToDisplay('2'));
+    document.getElementById('three').addEventListener('click', () => addToDisplay('3'));
+    document.getElementById('four').addEventListener('click', () => addToDisplay('4'));
+    document.getElementById('five').addEventListener('click', () => addToDisplay('5'));
+    document.getElementById('six').addEventListener('click', () => addToDisplay('6'));
+    document.getElementById('seven').addEventListener('click', () => addToDisplay('7'));
+    document.getElementById('eight').addEventListener('click', () => addToDisplay('8'));
+    document.getElementById('nine').addEventListener('click', () => addToDisplay('9'));
+
+    document.getElementById('zero').addEventListener('click', () => addToDisplay('0'));
+    
+    document.getElementById('dotPeriod').addEventListener('click', addPeriod);
+
+    document.getElementById('deleteIcon').addEventListener('click', backspace);
+    
 
   // Function to swap values between two elements
   function swapValues(element1, element2) {
@@ -613,7 +660,7 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
     // Get the elements to be swapped
     const fromCurrencySelect = document.getElementById('fromCurrency');
     const toCurrencySelect = document.getElementById('toCurrency');
-    const fromAmountInput = document.getElementById('fromAmountInput');
+    const fromAmountInput = document.getElementById('display');
     const toAmountInput = document.getElementById('toAmountInput');
 
     // Swap values between 'from' and 'to' select elements
@@ -634,7 +681,7 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
           const fromCurrencySelect = document.querySelector('#fromCurrency');
           const toCurrencySelect = document.querySelector('#toCurrency');
           const convertButton = document.querySelector('#convertButton');
-          const inputAmount = document.querySelector('#amountInput');
+          const inputAmount = document.querySelector('#display');
           const resultInput = document.querySelector('#resultInput');
 
           // Populate the options in the select elements
@@ -671,7 +718,7 @@ fetch('https://www.googleapis.com/blogger/v3/blogs/1953737097095782065/posts?key
   .catch(error => {
       console.log('Error fetching data:', error);
   });
-};
+
 
 
 /*window.onload = function () {

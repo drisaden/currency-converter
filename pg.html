@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html>
-
+  
+  <!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numeric Keyboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
     /* CSS code for styling the calculator */
     .calculator {
@@ -47,8 +48,7 @@
     }
   </style>
 </head>
-<body>
-  <div class="calculator">
+<!--  <div class="calculator">
     <div class="calculator__display">0</div>
     <button class="calculator__key calculator__key--operator" data-action="add">+</button>
     <button class="calculator__key calculator__key--operator" data-action="subtract">-</button>
@@ -67,7 +67,94 @@
     <button class="calculator__key" data-action="decimal">.</button>
     <button class="calculator__key" data-action="clear">AC</button>
     <button class="calculator__key calculator__key--equal" data-action="calculate">=</button>
-  </div>
+  </div>-->
+
+<body class="flex justify-center items-center h-screen bg-gray-200">
+
+<!--  <div class="grid grid-cols-3 gap-4 max-w-xs">
+
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn1">1</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn2">2</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn3">3</button>
+
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn4">4</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn5">5</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn6">6</button>
+
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn7">7</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn8">8</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btn9">9</button>
+
+    Digit 0 and Period 
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none col-span-2" id="btn0">0</button>
+    <button class="p-4 bg-blue-500 text-white rounded focus:outline-none" id="btnPeriod">.</button>
+
+    <!-- Backspace 
+    <button class="p-4 bg-red-500 text-white rounded focus:outline-none col-span-3" id="btnBackspace">Backspace</button>
+
+  </div>-->
+
+  <!--<div class="mt-4">
+    <input id="display" class="p-4 text-lg text-center w-32 bg-white border border-gray-300 rounded" readonly>
+  </div>-->
+                 <input id="display" class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" readonly/>
+    <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
+             <button id="seven" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
+              <button id="eight" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
+               <button id="nine" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</button>
+                <button id="four" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">4</button>
+                 <button id="five" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">5</button>
+                  <button id="six" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">6</button>
+                   <button id="one" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">1</button>
+                    <button id="two" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</button>
+                     <button id="three" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
+                      <button id="zero" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
+                       <button id="dotPeriod" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
+                        <button id="deleteIcon" class="delete-icon w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+            
+           </div>  
+
+  <script>
+    let display = document.getElementById('display');
+    let periodClicked = false;
+
+    const addToDisplay = (value) => {
+      if (value === '.' && (periodClicked || display.value === '')) {
+        return; // Prevent clicking period first or more than once
+      }
+      display.value += value;
+      if (value === '.') {
+        periodClicked = true;
+      }
+    }
+
+    const addPeriod = () => {
+      addToDisplay('.');
+    }
+
+    const backspace = () => {
+      display.value = display.value.slice(0, -1);
+      periodClicked = false; // Reset periodClicked when backspacing
+    }
+
+    // Event listeners
+    document.getElementById('one').addEventListener('click', () => addToDisplay('1'));
+    document.getElementById('two').addEventListener('click', () => addToDisplay('2'));
+    document.getElementById('three').addEventListener('click', () => addToDisplay('3'));
+    document.getElementById('four').addEventListener('click', () => addToDisplay('4'));
+    document.getElementById('five').addEventListener('click', () => addToDisplay('5'));
+    document.getElementById('six').addEventListener('click', () => addToDisplay('6'));
+    document.getElementById('seven').addEventListener('click', () => addToDisplay('7'));
+    document.getElementById('eight').addEventListener('click', () => addToDisplay('8'));
+    document.getElementById('nine').addEventListener('click', () => addToDisplay('9'));
+
+    document.getElementById('zero').addEventListener('click', () => addToDisplay('0'));
+    document.getElementById('dotPeriod').addEventListener('click', addPeriod);
+
+    document.getElementById('deleteIcon').addEventListener('click', backspace);
+  </script>
+
+
   <script>
     // JavaScript code for adding the functionality to the calculator
     // Get the calculator element
