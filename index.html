@@ -292,7 +292,82 @@
     }
   }
   
-   window.onload = ()=> {
+  window.onload = () => {
+  // Fetch the currency data (exchange rates)
+  fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
+    .then(response => response.json())
+    .then(data => {
+      exchangeRates = data.rates;
+      // Fetch the currency names and codes
+      return fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
+    })
+    .then(response => response.json())
+    .then(symbolData => {
+      // Get the select elements and convert button
+      const fromCurrencySelect = document.querySelector('#fromCurrency');
+      const toCurrencySelect = document.querySelector('#toCurrency');
+      const convertButton = document.querySelector('#convertButton');
+      const inputAmount = document.querySelector('#display');
+      const resultInput = document.querySelector('#resultInput');
+
+      // Populate the options in the select elements
+      for (const currency in exchangeRates) {
+        // Create option element for 'from' currency
+        const fromOption = document.createElement('option');
+        fromOption.value = currency;
+        fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
+        fromCurrencySelect.appendChild(fromOption);
+
+        // Create option element for 'to' currency
+        const toOption = document.createElement('option');
+        toOption.value = currency;
+        toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
+        toCurrencySelect.appendChild(toOption);
+      }
+
+      // Add event listener to the convert button
+      convertButton.addEventListener('click', () => {
+        // Get selected currencies and amount
+        const fromCurrency = fromCurrencySelect.value;
+        const amount = parseFloat(inputAmount.value);
+
+        // Create an array to store converted amounts
+        const convertedAmounts = [];
+
+        // Convert selected currency and store the result
+        const selectedConversionRate = exchangeRates[toCurrencySelect.value] / exchangeRates[fromCurrency];
+        const selectedConvertedAmount = amount * selectedConversionRate;
+        resultInput.value = selectedConvertedAmount;
+        convertedAmounts.push({ currency: toCurrencySelect.value, amount: selectedConvertedAmount.toFixed(2) });
+
+        // Convert into other currencies
+        for (const currency in exchangeRates) {
+          if (currency !== fromCurrency && currency !== toCurrencySelect.value) {
+            const conversionRate = exchangeRates[currency] / exchangeRates[fromCurrency];
+            const convertedAmount = amount * conversionRate;
+            convertedAmounts.push({ currency, amount: convertedAmount.toFixed(2) });
+          }
+        }
+
+        // Display the results
+        const resultsContainer = document.getElementById('resultsContainer');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        convertedAmounts.slice(1).forEach(result => {
+          const resultElement = document.createElement('div');
+          const currencyName = symbolData.symbols[result.currency];
+          resultElement.innerHTML = `Converted to ${result.currency} (${currencyName}): ${result.amount}`;
+          resultsContainer.appendChild(resultElement);
+        });
+      });
+    })
+    .catch(error => {
+      console.log('Error fetching data:', error);
+    });
+};
+
+  
+ /* <!-- window.onload = ()=> {
  let display = document.getElementById('display');
  function validateInput(input) {
    // Replace any non-numeric characters and more than one period
@@ -340,7 +415,7 @@
 
     document.getElementById('deleteIcon').addEventListener('click', backspace);
     
-
+*/
   // Function to swap values between two elements
   function swapValues(element1, element2) {
     const tempValue = element1.value;
@@ -363,7 +438,7 @@
     // Swap values between 'from' and 'to' amount input elements
     swapValues(fromAmountInput, toAmountInput);
   });
-  // Fetch the currency data (exchange rates)
+ /* // Fetch the currency data (exchange rates)
   fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
   .then(response => response.json())
   .then(data => {
@@ -440,7 +515,7 @@
   .catch(error => {
       console.log('Error fetching data:', error);
   });
-}
+}*/
 
     </script>
 </body>
