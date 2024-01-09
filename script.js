@@ -18,6 +18,7 @@ window.onload = async () => {
   try {
     // Fetch all currencies and their names
     const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    
     const currenciesData = await currenciesResponse.json();
     
 
