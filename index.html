@@ -117,9 +117,8 @@
              
             <div class="flex mt-10 mx-3 gap-2">
               <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
-                <option value="USD" class="pl-3"><span class="mx-3 block">
-</span>USD</span></option>
-              </select>
+                <option value="USD" class="pl-3"><span class="mx-3 block"></span>USD</span></option>
+  </select>
 <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" 
        id="display" 
        value="" 
@@ -129,12 +128,16 @@
               </div>
               <button id="exchange" class="text-center text-sm tx-mont font-medium m-3 p-3 focus:outline-none focus:ring-1">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
               
-            <div class="flex mb-10 mx-3 gap-2">
+            <div class="flex mb-5 mx-3 gap-2">
               <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
                 <option value="NGN" class="pl-3"><span class="mx-3 block">NGN</span></option>
               </select>
               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331" disabled/>
             </div>
+            <div class="flex justify-center">
+              <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="link-btn mb-10 focus:outline-none focus:ring-0 block tx-diamond  font-bold md:font-medium relative leading-none" type="button">View other currencies</button>
+            </div>
+             
              
             <button type="submit" id="convertButton" href="#"
                 class="ml-5 absolute left-20 -bottom-14 mx-auto block transition duration-300 inline-block text-white bg-diamond-2 hover:bg-blue-100 py-4 px-7 rounded-md font-bold text-base tx-mont mr-4 mb-10 uppercase">
@@ -146,10 +149,37 @@
 
     </header>
 
+<!-- Main modal -->
+<div id="default-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h5 class="text-xl tx-mont font-semibold text-gray-900 dark:text-white">
+                    Amount in other currencies
+                </h5>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-4 md:p-5 space-y-4">
+                <p class="text-xl leading-relaxed text-gray-700 dark:text-gray-600">
+                    (AUD)-Australian Dollar: <span class="font-bold tx-diamond"> 2234.3</span>
+                </p>
+               
+            </div>
+            <!-- Modal footer -->
+        </div>
+    </div>
+</div>
 
    <main class="px-10">
-    <div class="mx-auto flex justify-center">
-  <button 
+    <div class="mx-auto flex justify-center"> <button 
       class="mt-10 cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium"
       onclick="toggleBreakdown()">
      <span>
@@ -276,243 +306,10 @@
       
     </script>
    <script src="script.js"></script>
-    <script>
     
-   
-  
-  
-  /*window.onload = async () => {
-  try {
-    // Fetch the currency data (exchange rates)
-    const exchangeResponse = await fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
-    if (!exchangeResponse.ok) {
-      throw new Error('Error fetching exchange rates');
-    }
-    const exchangeData = await exchangeResponse.json();
-    exchangeRates = exchangeData.rates;
-
-    // Fetch the currency names and codes
-    const symbolResponse = await fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
-    if (!symbolResponse.ok) {
-      throw new Error('Error fetching symbols');
-    }
-    const symbolData = await symbolResponse.json();
-
-    // Get the select elements and convert button
-    const fromCurrencySelect = document.querySelector('#fromCurrency');
-    const toCurrencySelect = document.querySelector('#toCurrency');
-    const convertButton = document.querySelector('#convertButton');
-    const inputAmount = document.querySelector('#display');
-    const resultInput = document.querySelector('#resultInput');
-    const resultsContainer = document.getElementById('resultsContainer');
-
-    // Populate the options in the select elements
-    for (const currency in exchangeData.rates) {
-      // Create option element for 'from' currency
-      const fromOption = document.createElement('option');
-      fromOption.value = currency;
-      fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-      fromCurrencySelect.appendChild(fromOption);
-
-      // Create option element for 'to' currency
-      const toOption = document.createElement('option');
-      toOption.value = currency;
-      toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-      toCurrencySelect.appendChild(toOption);
-    }
-
-      // Add event listener to the convert button
-      convertButton.addEventListener('click', () => {
-        // Get selected currencies and amount
-        const fromCurrency = fromCurrencySelect.value;
-        const amount = parseFloat(inputAmount.value);
-
-        // Create an array to store converted amounts
-        const convertedAmounts = [];
-
-        // Convert selected currency and store the result
-        const selectedConversionRate = exchangeRates[toCurrencySelect.value] / exchangeRates[fromCurrency];
-        const selectedConvertedAmount = amount * selectedConversionRate;
-        resultInput.value = selectedConvertedAmount;
-        convertedAmounts.push({ currency: toCurrencySelect.value, amount: selectedConvertedAmount.toFixed(2) });
-
-        // Convert into other currencies
-        for (const currency in exchangeRates) {
-          if (currency !== fromCurrency && currency !== toCurrencySelect.value) {
-            const conversionRate = exchangeRates[currency] / exchangeRates[fromCurrency];
-            const convertedAmount = amount * conversionRate;
-            convertedAmounts.push({ currency, amount: convertedAmount.toFixed(2) });
-          }
-        }
-
-        // Display the results
-        const resultsContainer = document.getElementById('resultsContainer');
-        resultsContainer.innerHTML = ''; // Clear previous results
-
-        convertedAmounts.slice(1).forEach(result => {
-          const resultElement = document.createElement('div');
-          const currencyName = symbolData.symbols[result.currency];
-          resultElement.innerHTML = `Converted to ${result.currency} (${currencyName}): ${result.amount}`;
-          resultsContainer.appendChild(resultElement);
-        });
-      });
-} catch (error) {
-    console.log('Error:', error);
-  }
-};
-
-  
- /* window.onload = ()=> {
- let display = document.getElementById('display');
- function validateInput(input) {
-   // Replace any non-numeric characters and more than one period
-   input.value = input.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
- }
-
-    let periodClicked = false;
-
-    const addToDisplay = (value) => {
-      if (value === '.' && (periodClicked || display.value === '')) {
-        return; // Prevent clicking period first or more than once
-      }
-      display.value += value;
-      if (value === '.') {
-        periodClicked = true;
-      }
-    }
-
-    const addPeriod = () => {
-      addToDisplay('.');
-    }
-
-    const backspace = () => {
-      display.value = display.value.slice(0, -1);
-      periodClicked = false; // Reset periodClicked when backspacing
-    }
-    const getResultAsNumber = () => {
-  return parseFloat(display.value); // Converts the string to a floating-point number
-}
-
-// Event listeners
-    document.getElementById('one').addEventListener('click', () => addToDisplay('1'));
-    document.getElementById('two').addEventListener('click', () => addToDisplay('2'));
-    document.getElementById('three').addEventListener('click', () => addToDisplay('3'));
-    document.getElementById('four').addEventListener('click', () => addToDisplay('4'));
-    document.getElementById('five').addEventListener('click', () => addToDisplay('5'));
-    document.getElementById('six').addEventListener('click', () => addToDisplay('6'));
-    document.getElementById('seven').addEventListener('click', () => addToDisplay('7'));
-    document.getElementById('eight').addEventListener('click', () => addToDisplay('8'));
-    document.getElementById('nine').addEventListener('click', () => addToDisplay('9'));
-
-    document.getElementById('zero').addEventListener('click', () => addToDisplay('0'));
     
-    document.getElementById('dotPeriod').addEventListener('click', addPeriod);
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
 
-    document.getElementById('deleteIcon').addEventListener('click', backspace);
-    
-
-  // Function to swap values between two elements
-  function swapValues(element1, element2) {
-    const tempValue = element1.value;
-    element1.value = element2.value;
-    element2.value = tempValue;
-  }
-
-  // Add event listener to the Exchange button
-  const exchangeButton = document.getElementById('exchange');
-  exchangeButton.addEventListener('click', () => {
-    // Get the elements to be swapped
-    const fromCurrencySelect = document.getElementById('fromCurrency');
-    const toCurrencySelect = document.getElementById('toCurrency');
-    const fromAmountInput = document.getElementById('display');
-    const toAmountInput = document.getElementById('toAmountInput');
-
-    // Swap values between 'from' and 'to' select elements
-    swapValues(fromCurrencySelect, toCurrencySelect);
-
-    // Swap values between 'from' and 'to' amount input elements
-    swapValues(fromAmountInput, toAmountInput);
-  });
- /* // Fetch the currency data (exchange rates)
-  fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
-  .then(response => response.json())
-  .then(data => {
-    exchangeRates = data.rates;
-      // Fetch the currency names and codes
-      return fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54')
-        .then(response => response.json())
-        .then(symbolData => {
-          // Get the select elements and convert button
-          const fromCurrencySelect = document.querySelector('#fromCurrency');
-          const toCurrencySelect = document.querySelector('#toCurrency');
-          const convertButton = document.querySelector('#convertButton');
-          const inputAmount = document.querySelector('#display');
-          const resultInput = document.querySelector('#resultInput');
-
-      
-          // Populate the options in the select elements
-          for (const currency in data.rates) {
-            // Create option element for 'from' currency
-            const fromOption = document.createElement('option');
-            fromOption.value = currency;
-            fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-            fromCurrencySelect.appendChild(fromOption);
-
-            // Create option element for 'to' currency
-            const toOption = document.createElement('option');
-            toOption.value = currency;
-            toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-            toCurrencySelect.appendChild(toOption);
-          }
-
-          
-       convertButton.addEventListener('click', () => {
-  // Get selected currencies and amount
-  const fromCurrency = fromCurrencySelect.value;
-  const amount = parseFloat(inputAmount.value);
-
-  // Create an array to store converted amounts
-  const convertedAmounts = [];
-
-  // Convert selected currency and store the result
-  const selectedConversionRate = exchangeRates[toCurrencySelect.value] / exchangeRates[fromCurrency];
-  const selectedConvertedAmount = amount * selectedConversionRate;
-  resultInput.value = selectedConvertedAmount;
-  convertedAmounts.push({ currency: toCurrencySelect.value, amount: selectedConvertedAmount.toFixed(2) });
-
-  // Convert into other currencies
-  for (const currency in exchangeRates) {
-    if (currency !== fromCurrency && currency !== toCurrencySelect.value) {
-      const conversionRate = exchangeRates[currency] / exchangeRates[fromCurrency];
-      const convertedAmount = amount * conversionRate;
-      convertedAmounts.push({ currency, amount: convertedAmount.toFixed(2) });
-    }
-  }
-
-  // Display the results
-  const resultsContainer = document.getElementById('resultsContainer');
-  resultsContainer.innerHTML = ''; // Clear previous results
-
-  convertedAmounts.slice(1).forEach(result => {
-  const resultElement = document.createElement('div');
-  const currencyName = symbolData.symbols[result.currency];
-  resultElement.innerHTML = `Converted to ${result.currency} (${currencyName}): ${result.amount}`;
-  resultsContainer.appendChild(resultElement);
-});
-
-
-         
-       });
-
-       
-        })
-  })
-  .catch(error => {
-      console.log('Error fetching data:', error);
-  });
-}*/
-
-    </script>
 </body>
 
 </html>
