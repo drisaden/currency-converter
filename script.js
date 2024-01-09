@@ -13,88 +13,71 @@ function toggleBreakdown() {
       toggleText.innerText = 'Show';
     }
   }
-  
-  window.onload = async () => {
+  // Function to fetch available currencies
+window.onload = async () => {
   try {
-    // Fetch the currency data (exchange rates)
-    const exchangeResponse = await fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
-    if (!exchangeResponse.ok) {
-      throw new Error('Error fetching exchange rates');
-    }
-    const exchangeData = await exchangeResponse.json();
-    exchangeRates = exchangeData.rates;
+    // Fetch all currencies and their names
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesData = await currenciesResponse.json();
+    
 
-    // Fetch the currency names and codes
-    const symbolResponse = await fetch('http://data.fixer.io/api/symbols?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
-    if (!symbolResponse.ok) {
-      throw new Error('Error fetching symbols');
-    }
-    const symbolData = await symbolResponse.json();
+    // Populate currency select options
+    const currencySelects = document.querySelectorAll('.currency-select');
+    currencySelects.forEach(select => {
+      for (const currencyCode in currenciesData.currencies) {
+        const option = document.createElement('option');
+        option.value = currencyCode;
+        option.innerHTML = `(${currencyCode}) ${currenciesData.currencies[currencyCode]}`;
+        select.appendChild(option);
+      }
+    });
 
-    // Get the select elements and convert button
-    const fromCurrencySelect = document.querySelector('#fromCurrency');
-    const toCurrencySelect = document.querySelector('#toCurrency');
-    const convertButton = document.querySelector('#convertButton');
-    const inputAmount = document.querySelector('#display');
-    const resultInput = document.querySelector('#resultInput');
-    const resultsContainer = document.getElementById('resultsContainer');
+    // Event listener for the convert button
+    const convertButton = document.getElementById('convertButton');
+    convertButton.addEventListener('click', async () => {
+      // Get selected currencies and amount
+      const fromCurrency = document.getElementById('fromCurrency').value;
+      const toCurrency = document.getElementById('toCurrency').value;
+      const amount = parseFloat(document.getElementById('display').value);
 
-    // Populate the options in the select elements
-    for (const currency in exchangeData.rates) {
-      // Create option element for 'from' currency
-      const fromOption = document.createElement('option');
-      fromOption.value = currency;
-      fromOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-      fromCurrencySelect.appendChild(fromOption);
+      // Check if the selected currencies are valid
+      if (!currenciesData.currencies[fromCurrency] || !currenciesData.currencies[toCurrency]) {
+        
+        alert('Invalid currency selection');
+        return;
+      }
 
-      // Create option element for 'to' currency
-      const toOption = document.createElement('option');
-      toOption.value = currency;
-      toOption.innerHTML = `(${currency})${symbolData.symbols[currency]}`;
-      toCurrencySelect.appendChild(toOption);
-    }
+      // Call the conversion API
+      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
 
-      // Add event listener to the convert button
-      convertButton.addEventListener('click', () => {
-        // Get selected currencies and amount
-        const fromCurrency = fromCurrencySelect.value;
-        const amount = parseFloat(inputAmount.value);
+      
 
-        // Create an array to store converted amounts
-        const convertedAmounts = [];
+      try {
+        const conversionApiResponse = await fetch(conversionApiUrl);
 
-        // Convert selected currency and store the result
-        const selectedConversionRate = exchangeRates[toCurrencySelect.value] / exchangeRates[fromCurrency];
-        const selectedConvertedAmount = amount * selectedConversionRate;
-        resultInput.value = selectedConvertedAmount;
-        convertedAmounts.push({ currency: toCurrencySelect.value, amount: selectedConvertedAmount.toFixed(2) });
+        const conversionApiData = await conversionApiResponse.json();
+        console.log('Conversion API response:', conversionApiData);
+        
+        // Calculate converted amount
+       const convertedAmount = conversionApiData.result[toCurrency];
 
-        // Convert into other currencies
-        for (const currency in exchangeRates) {
-          if (currency !== fromCurrency && currency !== toCurrencySelect.value) {
-            const conversionRate = exchangeRates[currency] / exchangeRates[fromCurrency];
-            const convertedAmount = amount * conversionRate;
-            convertedAmounts.push({ currency, amount: convertedAmount.toFixed(2) });
-          }
-        }
 
-        // Display the results
-        const resultsContainer = document.getElementById('resultsContainer');
-        resultsContainer.innerHTML = ''; // Clear previous results
+        // Display the result in the second input
+        document.getElementById('resultInput').value = convertedAmount.toFixed(2);
 
-        convertedAmounts.slice(1).forEach(result => {
-          const resultElement = document.createElement('div');
-          const currencyName = symbolData.symbols[result.currency];
-          resultElement.innerHTML = `Converted to ${result.currency} (${currencyName}): ${result.amount}`;
-          resultsContainer.appendChild(resultElement);
-        });
-      });
-} catch (error) {
-    console.log('Error:', error);
+        
+      } catch (error) {
+        console.error('Error calling conversion API:', error);
+      }
+    });
+  } catch (error) {
+    console.log('Error fetching data:', error);
   }
 };
 
-let display = document.getElementById('display');
+
+
+  let display = document.getElementById('display');
  function validateInput(input) {
    // Replace any non-numeric characters and more than one period
    input.value = input.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
@@ -156,9 +139,6 @@ function swapValues(element1, element2) {
     const toCurrencySelect = document.getElementById('toCurrency');
     const fromAmountInput = document.getElementById('display');
     const toAmountInput = document.getElementById('toAmountInput');
-
-
-
 
 
     // Swap values between 'from' and 'to' select elements

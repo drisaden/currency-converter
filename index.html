@@ -116,7 +116,7 @@
              
              
             <div class="flex mt-10 mx-3 gap-2">
-              <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
+              <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
                 <option value="USD" class="pl-3"><span class="mx-3 block">
 </span>USD</span></option>
               </select>
@@ -130,7 +130,7 @@
               <button id="exchange" class="text-center text-sm tx-mont font-medium m-3 p-3 focus:outline-none focus:ring-1">Exchange <i class="fa fa-exchange fa-sm ml-1" aria-hidden="true"></i></button>
               
             <div class="flex mb-10 mx-3 gap-2">
-              <select class="ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
+              <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
                 <option value="NGN" class="pl-3"><span class="mx-3 block">NGN</span></option>
               </select>
               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331" disabled/>
@@ -275,25 +275,13 @@
     <script type="text/javascript" charset="utf-8" src="https://adenaikeidris.com.ng/assets/js/main.js">
       
     </script>
-    <script src="script.js"></script>
+   <script src="script.js"></script>
     <script>
-   /* function toggleBreakdown() {
-    const breakdownDiv = document.getElementById('breakdown');
-    const caretIcon = document.getElementById('caretIcon');
-    const toggleText = document.getElementById('toggleText');
-
-    if (breakdownDiv.style.display === 'none' || breakdownDiv.style.display === '') {
-      breakdownDiv.style.display = 'block';
-      caretIcon.className = 'fa fa-caret-up ml-2';
-      toggleText.innerText = 'Hide';
-    } else {
-      breakdownDiv.style.display = 'none';
-      caretIcon.className = 'fa fa-caret-down ml-2';
-      toggleText.innerText = 'Show';
-    }
-  }
+    
+   
   
-  window.onload = async () => {
+  
+  /*window.onload = async () => {
   try {
     // Fetch the currency data (exchange rates)
     const exchangeResponse = await fetch('http://data.fixer.io/api/latest?access_key=8ea2fa9867e38b2ddb229a08960ebb54');
