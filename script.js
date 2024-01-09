@@ -14,7 +14,7 @@ function toggleBreakdown() {
     }
   }
   // Function to fetch available currencies
-window.onload = async () => {
+/*window.onload = async () => {
   try {
     // Fetch all currencies and their names
     const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
@@ -74,8 +74,85 @@ window.onload = async () => {
   } catch (error) {
     console.log('Error fetching data:', error);
   }
-};
+};*/
 
+window.onload = async () => {
+  try {
+    // Fetch all currencies and their names
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesData = await currenciesResponse.json();
+
+    // Populate currency select options
+    const currencySelects = document.querySelectorAll('.currency-select');
+    currencySelects.forEach(select => {
+      for (const currencyCode in currenciesData.currencies) {
+        const option = document.createElement('option');
+        option.value = currencyCode;
+        option.innerHTML = `(${currencyCode}) ${currenciesData.currencies[currencyCode]}`;
+        select.appendChild(option);
+      }
+    });
+
+    // Event listener for the convert button
+    const convertButton = document.getElementById('convertButton');
+    convertButton.addEventListener('click', async () => {
+      // Get selected currencies and amount
+      const fromCurrency = document.getElementById('fromCurrency').value;
+      const toCurrency = document.getElementById('toCurrency').value;
+      const amount = parseFloat(document.getElementById('display').value);
+
+      // Check if the selected currencies are valid
+      if (!currenciesData.currencies[fromCurrency] || !currenciesData.currencies[toCurrency]) {
+        alert('Invalid currency selection');
+        return;
+      }
+
+      // Call the conversion API
+      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+
+      try {
+        const conversionApiResponse = await fetch(conversionApiUrl);
+        const conversionApiData = await conversionApiResponse.json();
+        console.log('Conversion API response:', conversionApiData);
+
+        // Calculate converted amount
+        const convertedAmount = conversionApiData.result[toCurrency];
+
+        // Display the result in the second input
+        document.getElementById('resultInput').value = convertedAmount.toFixed(2);
+
+        // Fetch conversion rates for all currencies
+        const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+
+        try {
+          const conversionRatesResponse = await fetch(conversionRatesApiUrl);
+          const conversionRatesData = await conversionRatesResponse.json();
+          console.log('Conversion rates API response:', conversionRatesData);
+
+          // Update elements with converted amounts
+          const otherCurrenciesContainer = document.getElementById('otherCurrenciesContainer');
+          otherCurrenciesContainer.innerHTML = ''; // Clear previous results
+
+          for (const currencyCode in conversionRatesData.results) {
+            const convertedAmount = amount * conversionRatesData.results[currencyCode];
+            const currencyName = currenciesData.currencies[currencyCode];
+
+            // Create and append elements to the container
+            const resultElement = document.createElement('div');
+            resultElement.innerHTML = `(${currencyCode})-${currencyName}: <span class="font-bold tx-diamond">${convertedAmount.toFixed(2)}</span>`;
+            otherCurrenciesContainer.appendChild(resultElement);
+          }
+        } catch (error) {
+          console.error('Error calling conversion rates API:', error);
+        }
+      } catch (error) {
+        console.error('Error calling conversion API:', error);
+      }
+    });
+  } catch (error) {
+    console.log('Error fetching data:', error);
+  }
+};
 
 
   let display = document.getElementById('display');
