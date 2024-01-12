@@ -423,6 +423,11 @@ window.onload = async () => {
     // Fetch all currencies and their names
     const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
     const currenciesData = await currenciesResponse.json();
+    
+    const singleCurrencyResponse = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw');
+          const singleCurrencyData = await singleCurrencyResponse.json();
+          const singleCurrencyRate = singleCurrencyData.result.NGN;
+          document.getElementById('resultInput').placeholder = `1 USD = ${singleCurrencyRate.toFixed(2)} NGN`;
 
     // Populate currency select options
     const currencySelects = document.querySelectorAll('.currency-select');
@@ -483,11 +488,8 @@ window.onload = async () => {
             otherCurrenciesContainer.appendChild(resultElement);
           }
 
-          // Update placeholder text based on selected currencies
-          const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
-          const singleCurrencyData = await singleCurrencyResponse.json();
-          const singleCurrencyRate = singleCurrencyData.result[toCurrency];
-          document.getElementById('resultInput').placeholder = `1 ${fromCurrency} = ${singleCurrencyRate.toFixed(2)} ${toCurrency}`;
+         
+          
         } catch (error) {
           console.error('Error calling conversion rates API:', error);
         }
@@ -563,14 +565,14 @@ let display = document.getElementById('display');
     document.getElementById('deleteIcon').addEventListener('click', backspace);
     
 
-function swapValues(element1, element2) {
+/*function swapValues(element1, element2) {
     const tempValue = element1.value;
     element1.value = element2.value;
     element2.value = tempValue;
-  }
+  }*/
 
   // Add event listener to the Exchange button
-  const exchangeButton = document.getElementById('exchange');
+  /*const exchangeButton = document.getElementById('exchange');
   exchangeButton.addEventListener('click', () => {
     // Get the elements to be swapped
     const fromCurrencySelect = document.getElementById('fromCurrency');
@@ -584,7 +586,22 @@ function swapValues(element1, element2) {
 
     // Swap values between 'from' and 'to' amount input elements
     swapValues(fromAmountInput, toAmountInput);
-  });
+  });*/
+  const exchangeButton = document.getElementById('exchange');
+    exchangeButton.addEventListener('click', async () => {
+      // Swap values between 'fromCurrency' and 'toCurrency'
+      const tempCurrency = document.getElementById('fromCurrency').value;
+      document.getElementById('fromCurrency').value = document.getElementById('toCurrency').value;
+      document.getElementById('toCurrency').value = tempCurrency;
+
+      // Update placeholder text based on swapped currencies
+      const swappedFromCurrency = document.getElementById('fromCurrency').value;
+      const swappedToCurrency = document.getElementById('toCurrency').value;
+      const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+      const singleCurrencyData = await singleCurrencyResponse.json();
+      const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
+      document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(3)} ${swappedToCurrency}`;
+    });
       
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
