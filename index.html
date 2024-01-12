@@ -33,6 +33,11 @@
     <link rel="stylesheet" href="https://adenaikeidris.com.ng/assets/css/style.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.52.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
 </head>
+<style>
+  input[placeholder]{
+    font-style: italic;
+  }
+</style>
 
 <body>
     <!-- Nav section -->
@@ -122,7 +127,7 @@
 <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" 
        id="display" 
        value="" 
-       placeholder="1233.1" 
+       placeholder="input your amount" 
        type="text" oninput="validateInput(this)">
 
               </div>
@@ -369,7 +374,7 @@
       try {
         const conversionApiResponse = await fetch(conversionApiUrl);
         const conversionApiData = await conversionApiResponse.json();
-        console.log('Conversion API response:', conversionApiData);
+        //console.log('Conversion API response:', conversionApiData);
 
         // Calculate converted amount
         const convertedAmount = conversionApiData.result[toCurrency];
@@ -383,7 +388,7 @@
         try {
           const conversionRatesResponse = await fetch(conversionRatesApiUrl);
           const conversionRatesData = await conversionRatesResponse.json();
-          console.log('Conversion rates API response:', conversionRatesData);
+         // console.log('Conversion rates API response:', conversionRatesData);
 
           // Update elements with converted amounts
           const otherCurrenciesContainer = document.getElementById('otherCurrenciesContainer');
