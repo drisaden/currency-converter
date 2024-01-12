@@ -565,28 +565,6 @@ let display = document.getElementById('display');
     document.getElementById('deleteIcon').addEventListener('click', backspace);
     
 
-/*function swapValues(element1, element2) {
-    const tempValue = element1.value;
-    element1.value = element2.value;
-    element2.value = tempValue;
-  }*/
-
-  // Add event listener to the Exchange button
-  /*const exchangeButton = document.getElementById('exchange');
-  exchangeButton.addEventListener('click', () => {
-    // Get the elements to be swapped
-    const fromCurrencySelect = document.getElementById('fromCurrency');
-    const toCurrencySelect = document.getElementById('toCurrency');
-    const fromAmountInput = document.getElementById('display');
-    const toAmountInput = document.getElementById('toAmountInput');
-
-
-    // Swap values between 'from' and 'to' select elements
-    swapValues(fromCurrencySelect, toCurrencySelect);
-
-    // Swap values between 'from' and 'to' amount input elements
-    swapValues(fromAmountInput, toAmountInput);
-  });*/
   const exchangeButton = document.getElementById('exchange');
     exchangeButton.addEventListener('click', async () => {
       // Swap values between 'fromCurrency' and 'toCurrency'
