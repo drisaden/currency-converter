@@ -331,8 +331,13 @@
     const currenciesData = await currenciesResponse.json();
     
     //const currenciesData = await currenciesResponse.json();
-    const singleCurrency = await fetch('https://api.fastforex.io/convert?from=USD&to=Naira&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw');
-
+    const singleCurrency = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const singleCurrencyData= await singleCurrency.json();
+    //console.log(singleCurrencyData)
+    singleCurrencyRate= singleCurrencyData.result.NGN;
+    document.getElementById('resultInput').placeholder = `1 USD = ${singleCurrencyRate.toFixed(2)} NGN`;
+      
+      
     // Populate currency select options
     const currencySelects = document.querySelectorAll('.currency-select');
     currencySelects.forEach(select => {
