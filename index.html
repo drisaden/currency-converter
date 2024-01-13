@@ -41,9 +41,11 @@
   }
   /* Add loading spinner styles */
   .spinner-body{
-    height: 100vh;
+    height: 100%;
     width: 100vw;
-  background-color: gray;
+    background-color: gray;
+    position: absolute;
+    z-index: 9999;
   }
 .spinner {
   display: block;
@@ -83,7 +85,7 @@
 
 </style>
 
-<body>
+<body class="relative">
     <div class="spinner-body" id="spinner"><div class="spinner"></div></div>
  
     <!-- Nav section -->
