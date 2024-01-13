@@ -67,6 +67,20 @@
   100% { transform: rotate(360deg); }
 }
 
+/* CSS for animation and transition */
+.currency-select {
+  transition: transform 0.5s ease-in-out;
+}
+
+.swap-animation-y {
+  transform: translateY(112px); /* Adjust the value based on your layout */
+}
+
+.swap-animation-x{
+  transform: translateY(-112px); /* Adjust the value based on your layout */
+}
+
+
 </style>
 
 <body>
@@ -541,20 +555,36 @@ let display = document.getElementById('display');
     
 
   const exchangeButton = document.getElementById('exchange');
-    exchangeButton.addEventListener('click', async () => {
-      // Swap values between 'fromCurrency' and 'toCurrency'
-      const tempCurrency = document.getElementById('fromCurrency').value;
-      document.getElementById('fromCurrency').value = document.getElementById('toCurrency').value;
-      document.getElementById('toCurrency').value = tempCurrency;
 
-      // Update placeholder text based on swapped currencies
-      const swappedFromCurrency = document.getElementById('fromCurrency').value;
-      const swappedToCurrency = document.getElementById('toCurrency').value;
-      const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
-      const singleCurrencyData = await singleCurrencyResponse.json();
-      const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
-      document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(3)} ${swappedToCurrency}`;
-    });
+exchangeButton.addEventListener('click', async () => {
+  // Swap values between 'fromCurrency' and 'toCurrency'
+  const fromCurrencySelect = document.getElementById('fromCurrency');
+  const toCurrencySelect = document.getElementById('toCurrency');
+
+  const tempCurrency = fromCurrencySelect.value;
+  fromCurrencySelect.value = toCurrencySelect.value;
+  toCurrencySelect.value = tempCurrency;
+
+  // Toggle animation class on select tags
+  fromCurrencySelect.classList.toggle('swap-animation-y');
+  toCurrencySelect.classList.toggle('swap-animation-x');
+
+  // Update placeholder text based on swapped currencies
+  const swappedFromCurrency = fromCurrencySelect.value;
+  const swappedToCurrency = toCurrencySelect.value;
+  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+  const singleCurrencyData = await singleCurrencyResponse.json();
+  const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
+  document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
+});
+
+// Remove animation class after the animation completes
+document.querySelectorAll('.currency-select').forEach(select => {
+  select.addEventListener('transitionend', () => {
+    select.classList.remove('swap-animation');
+  });
+});
+
       
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
