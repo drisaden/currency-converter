@@ -209,19 +209,50 @@ function swapValues(element1, element2) {
     element2.value = tempValue;
   }
 
-  // Add event listener to the Exchange button
-  const exchangeButton = document.getElementById('exchange');
-  exchangeButton.addEventListener('click', () => {
-    // Get the elements to be swapped
-    const fromCurrencySelect = document.getElementById('fromCurrency');
-    const toCurrencySelect = document.getElementById('toCurrency');
-    const fromAmountInput = document.getElementById('display');
-    const toAmountInput = document.getElementById('toAmountInput');
+
+const exchangeButton = document.getElementById('exchange');
+
+exchangeButton.addEventListener('click', async () => {
+  // Swap values between 'fromCurrency' and 'toCurrency'
+  const fromCurrencySelect = document.getElementById('fromCurrency');
+  const toCurrencySelect = document.getElementById('toCurrency');
+
+  const tempCurrency = fromCurrencySelect.value;
+  fromCurrencySelect.value = toCurrencySelect.value;
+  toCurrencySelect.value = tempCurrency;
+
+  // Toggle animation class on select tags
+  fromCurrencySelect.classList.toggle('swap-animation-y');
+  toCurrencySelect.classList.toggle('swap-animation-x');
+
+  // Update placeholder text based on swapped currencies
+  const swappedFromCurrency = fromCurrencySelect.value;
+  const swappedToCurrency = toCurrencySelect.value;
+  
+  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+  const singleCurrencyData = await singleCurrencyResponse.json();
+  const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
+  document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
+  
+  swapValues(swappedFromCurrency, swappedToCurrency)
+});
+
+// Remove animation class after the animation completes
+document.querySelectorAll('.currency-select').forEach(select => {
+  select.addEventListener('transitionend', () => {
+    select.classList.remove('swap-animation-y');
+        select.classList.remove('swap-animation-x');
+
+  });
+});
 
 
-    // Swap values between 'from' and 'to' select elements
+
+   /* // Swap values between 'from' and 'to' select elements
     swapValues(fromCurrencySelect, toCurrencySelect);
 
     // Swap values between 'from' and 'to' amount input elements
     swapValues(fromAmountInput, toAmountInput);
-  });
+  });*/
+  
+  

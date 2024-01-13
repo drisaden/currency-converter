@@ -51,8 +51,6 @@
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  background-color: gray;
-  opacity: 0.7;
   animation: spin 1s linear infinite;
   position: fixed;
   top: 50%;
@@ -553,44 +551,50 @@ let display = document.getElementById('display');
     document.getElementById('deleteIcon').addEventListener('click', backspace);
     
 
-  const exchangeButton = document.getElementById('exchange');
+
+
+const exchangeButton = document.getElementById('exchange');
 
 exchangeButton.addEventListener('click', async () => {
   // Swap values between 'fromCurrency' and 'toCurrency'
   const fromCurrencySelect = document.getElementById('fromCurrency');
   const toCurrencySelect = document.getElementById('toCurrency');
-  const fromAmountInput = document.getElementById('display');
-  const toAmountInput = document.getElementById('toAmountInput');
+
+  const tempCurrency = fromCurrencySelect.value;
+  fromCurrencySelect.value = toCurrencySelect.value;
+  toCurrencySelect.value = tempCurrency;
 
   // Toggle animation class on select tags
   fromCurrencySelect.classList.toggle('swap-animation-y');
   toCurrencySelect.classList.toggle('swap-animation-x');
-
-  // Wait for the animation to complete
-  await new Promise(resolve => setTimeout(resolve, 500)); // Adjust the duration based on your transition duration
-
-  // Swap values between 'from' and 'to' elements
-  swapValues(fromCurrencySelect, toCurrencySelect);
-  swapValues(fromAmountInput, toAmountInput);
+  
+  function swapValues(element1, element2) {
+    const tempValue = element1.value;
+    element1.value = element2.value;
+    element2.value = tempValue;
+  }
 
   // Update placeholder text based on swapped currencies
   const swappedFromCurrency = fromCurrencySelect.value;
   const swappedToCurrency = toCurrencySelect.value;
+  
   const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
   const singleCurrencyData = await singleCurrencyResponse.json();
   const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
   document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
-
-  // Remove animation class after the animation completes
-  fromCurrencySelect.classList.remove('swap-animation-y');
-  toCurrencySelect.classList.remove('swap-animation-x');
+  
+  swapValues(swappedFromCurrency, swappedToCurrency)
 });
 
-function swapValues(element1, element2) {
-  const tempValue = element1.value;
-  element1.value = element2.value;
-  element2.value = tempValue;
-}
+// Remove animation class after the animation completes
+document.querySelectorAll('.currency-select').forEach(select => {
+  select.addEventListener('transitionend', () => {
+    select.classList.remove('swap-animation-y');
+        select.classList.remove('swap-animation-x');
+
+  });
+});
+
 
 
 
