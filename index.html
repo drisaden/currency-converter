@@ -255,7 +255,7 @@
             <div id="" class="p-4 md:p-5 space-y-4">
                  <div class="calculator__display">0</div>
                <div class="calculator flex justify-evenly align-center">
-                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border border-red-700">
+                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border-r border-gray-400">
                 <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">7</button>
               <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">8</button>
                <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">9</button>
@@ -272,14 +272,17 @@
     <button class="calculator__key calculator__key--equal p-5 hover:rounded-lg hover:shadow-md" data-action="calculate">=</button>
                       </div>
                       <div class="w-3/12">
-                      <div class="grid grid-cols-1 gap-4 align-center border border-red-700">
+                      <div class="flex flex-col justify-center align-center gap-4 align-center h-8/12">
                       <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="divide">÷</button>
                       
                         <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="multiply">×</button>
                       
                       <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="subtract">-</button>
+                     </div>
+                     <div class="flex flex-col justify-center align-center gap-4 align-center h-3/12">
                     
-                      <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="add">+</button>
+                      <button class="flex-none h-32 p-5 mt-3 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="add">+</button>
+                      </div>
                       </div>
                    </div>
             
