@@ -270,7 +270,7 @@
                      <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">3</button>
                       <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">0</button>
                           <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md" data-action="decimal">.</button>
-                        <button class="p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+                        <button id="deleteNum" class="p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
                         <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md" data-action="clear">AC</button>
     <button class="col-span-2 bg-diamond-2 text-white calculator__key calculator__key--equal m-5 rounded-sm p-5 hover:rounded-lg hover:shadow-md" data-action="calculate">=</button>
                       </div>
@@ -425,7 +425,7 @@
   <!--<script src="script.js"></script>-->
     
     <script>
-    const calculator = document.querySelector('.calculator');
+    /*const calculator = document.querySelector('.calculator');
 
     // Get the display element
     const output = calculator.querySelector('.calculator__output');
@@ -572,7 +572,99 @@
       calculator.dataset.operator = '';
       calculator.dataset.previousKeyType = '';
     }
+  */
   
+  
+  
+  const calculator = document.querySelector('.calculator');
+const output = calculator.querySelector('#input');
+const preview = calculator.querySelector('#preview');
+const keys = calculator.querySelectorAll('.calculator__key');
+
+keys.forEach(key => {
+    key.addEventListener('click', event => {
+        const key = event.target;
+        const action = key.dataset.action;
+        const displayedNum = output.textContent;
+        const previousKeyType = calculator.dataset.previousKeyType;
+
+        if (!action || action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide') {
+            output.textContent += key.textContent;
+            preview.textContent = displayedNum;
+            calculator.dataset.previousKeyType = 'number';
+        }
+
+        if (action === 'decimal') {
+            if (!displayedNum.includes('.')) {
+                output.textContent = displayedNum + '.';
+            }
+            if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+                output.textContent = '0.';
+            }
+            calculator.dataset.previousKeyType = 'decimal';
+            preview.textContent = displayedNum;
+        }
+
+        if (action === 'calculate') {
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const secondValue = displayedNum;
+
+            if (firstValue && operator && secondValue) {
+                const result = calculate(firstValue, operator, secondValue);
+                output.textContent = result;
+                preview.textContent = result;
+            }
+
+            calculator.dataset.previousKeyType = 'calculate';
+        }
+
+        
+
+        
+    });
+});
+
+
+    
+const backspace = () => {
+  const output = calculator.querySelector('#input');
+  const preview = calculator.querySelector('#preview');
+      output.innerHTML = output.innerHTML.slice(0, -1);
+      preview.innerHTML = output.innerHTML;
+      
+      console.log(output)
+      //periodClicked = false; // Reset periodClicked when backspacing
+    }
+    
+    document.getElementById('deleteNum').addEventListener('click', backspace);
+    
+    
+
+function calculate(firstValue, operator, secondValue) {
+    firstValue = parseFloat(firstValue);
+    secondValue = parseFloat(secondValue);
+
+    switch (operator) {
+        case 'add':
+            return firstValue + secondValue;
+        case 'subtract':
+            return firstValue - secondValue;
+        case 'multiply':
+            return firstValue * secondValue;
+        case 'divide':
+            return firstValue / secondValue;
+    }
+}
+
+function resetCalculator() {
+    output.textContent = '0';
+    calculator.dataset.firstValue = '';
+    calculator.dataset.operator = '';
+    calculator.dataset.previousKeyType = '';
+}
+
+
   
     /*function toggleBreakdown() {
     const breakdownDiv = document.getElementById('breakdown');
