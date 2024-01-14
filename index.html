@@ -168,7 +168,7 @@
              
             <div class="flex mt-10 mx-3 gap-2">
               <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="fromCurrency" class="">
-                <option value="USD" class="pl-3"><span class="mx-3 block"></span>USD</span></option>
+                <option value="USD" class="pl-2"><span class="mx-3 block"></span>USD</span></option>
   </select>
 <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" 
        id="display" 
@@ -181,7 +181,7 @@
               
             <div class="flex mb-5 mx-3 gap-2">
               <select class="currency-select ml-3 w-20 tx-2xl border-0 focus:outline-none focus:ring-0" name="" id="toCurrency" class="">
-                <option value="NGN" class="pl-3"><span class="mx-3 block">NGN</span></option>
+                <option value="NGN" class="pl-2"><span class="mx-3 block">NGN</span></option>
               </select>
               <input class="text-right border-0 rounded-md bg-gray-100 pl-3 py-3 w-3/5 focus:outline-none focus:ring-1 focus:ring-blue-100" type="number" name="" id="resultInput" value="" placeholder="12331" disabled/>
             </div>
@@ -417,7 +417,7 @@
 
 
     <script type="text/javascript" charset="utf-8" src="https://adenaikeidris.com.ng/assets/js/main.js"></script>
-  <!--<script src="script.js"></script>-->
+  <script src="script.js"></script>
     
     <script>
     /*const calculator = document.querySelector('.calculator');
@@ -569,7 +569,7 @@
     }
   */
   
-  
+ /* 
   
   const calculator = document.querySelector('.calculator');
 const output = calculator.querySelector('#input');
@@ -606,10 +606,8 @@ keys.forEach(key => {
             calculator.dataset.previousKeyType = 'decimal';
         }
 
-        if (action === 'calculate') {
-            const match = displayedNum.match(/^(\d+)\s*([+\-*/])\s*(\d+)$/);
-
-            if (match) {
+        
+            /*if (match) {
                 const firstValue = parseFloat(match[1]);
                 const operator = match[2];
                 const secondValue = parseFloat(match[3]);
@@ -661,7 +659,7 @@ const backspace = () => {
     document.getElementById('deleteNum').addEventListener('click', backspace);
     
     
-
+*/
 /*function calculate(firstValue, operator, secondValue) {
     firstValue = parseFloat(firstValue);
     secondValue = parseFloat(secondValue);
@@ -677,14 +675,14 @@ const backspace = () => {
             return firstValue / secondValue;
     }
 }*/
-
+/*
 function resetCalculator() {
     output.innerHTML = '0';
     preview.innerHTML = '0'
     calculator.dataset.firstValue = '';
     calculator.dataset.operator = '';
     calculator.dataset.previousKeyType = '';
-}
+}*/
 
 
   

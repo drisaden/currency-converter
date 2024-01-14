@@ -378,7 +378,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
   });
 });
 
-window.onload = async () => {
+/*window.onload = async () => {
   try {
     // Show spinner on page load
     const spinner = document.getElementById('spinner');
@@ -463,10 +463,7 @@ window.onload = async () => {
           }
         } catch (error) {
           console.error('Error calling conversion API:', error);
-        } /*finally {
-          // Hide spinner after successful or failed API calls
-          spinner.style.display = 'none';
-        }*/
+        } /
       } catch (error) {
         // Hide spinner on error and show alert
         console.error('Error calling conversion API:', error);
@@ -495,10 +492,7 @@ window.onload = async () => {
           // Hide spinner on error and show alert
           console.error('Error calling conversion API:', error);
           alert('Failed to fetch rates. Please try again.');
-        } /*finally {
-          // Hide spinner after successful or failed API calls
-          spinner.style.display = 'none';
-        }*/
+        } 
      });
     });
   } catch (error) {
@@ -706,7 +700,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
   
    // JavaScript code for adding the functionality to the calculator
     // Get the calculator element
-    const calculator = document.querySelector('.calculator');
+    /*const calculator = document.querySelector('.calculator');
 
     // Get the display element
     const output = calculator.querySelector('.calculator__output');
@@ -854,4 +848,121 @@ document.querySelectorAll('.currency-select').forEach(select => {
       calculator.dataset.previousKeyType = '';
     }
   
+  */
   
+  const calculator = document.querySelector('.calculator');
+const output = calculator.querySelector('#input');
+const preview = calculator.querySelector('#preview');
+const keys = calculator.querySelectorAll('.calculator__key');
+
+
+keys.forEach(key => {
+    key.addEventListener('click', event => {
+        const clickedKey = event.target;
+        const action = clickedKey.dataset.action;
+        const displayedNum = output.textContent;
+        const previousKeyType = calculator.dataset.previousKeyType;
+
+        if (!action || action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide') {
+            output.textContent += clickedKey.textContent;
+            preview.textContent += clickedKey.innerHTML;
+            calculator.dataset.previousKeyType = 'number';
+        }
+
+        if (action === 'clear') {
+            resetCalculator();
+        }
+
+        if (action === 'decimal') {
+            if (!displayedNum.includes('.')) {
+                output.textContent += '.';
+                preview.textContent += '.';
+            }
+            if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+                output.textContent = '0.';
+                preview.textContent = '0.';
+            }
+            calculator.dataset.previousKeyType = 'decimal';
+        }
+
+        if (action === 'calculate') {
+            const match = displayedNum.match(/^(\d+)\s*([+\-*/])\s*(\d+)$/);
+
+            if (match) {
+                const firstValue = parseFloat(match[1]);
+                const operator = match[2];
+                const secondValue = parseFloat(match[3]);
+
+                const result = calculate(firstValue, operator, secondValue);
+
+                output.textContent = result;
+                preview.textContent = '';
+
+                calculator.dataset.previousKeyType = 'calculate';
+            }
+        }
+    });
+});
+
+function calculate(firstValue, operator, secondValue) {
+    switch (operator) {
+        case '+':
+            return firstValue + secondValue;
+        case '-':
+            return firstValue - secondValue;
+        case 'x':
+            return firstValue * secondValue;
+        case '÷':
+            return secondValue !== 0 ? firstValue / secondValue : "Error: Division by zero";
+        default:
+            return "Error: Unknown operator";
+    }
+}
+
+function resetCalculator() {
+    output.textContent = '0';
+    preview.textContent = '';
+    calculator.dataset.previousKeyType = '';
+}
+
+
+    
+const backDelete = () => {
+  const output = calculator.querySelector('#input');
+  const preview = calculator.querySelector('#preview');
+      output.innerHTML = output.innerHTML.slice(0, -1);
+      preview.innerHTML = output.innerHTML;
+      
+      console.log(output)
+      //periodClicked = false; // Reset periodClicked when backspacing
+    }
+    
+    document.getElementById('deleteNum').addEventListener('click', backDelete);
+    
+    
+
+/*function calculate(firstValue, operator, secondValue) {
+    firstValue = parseFloat(firstValue);
+    secondValue = parseFloat(secondValue);
+
+    switch (operator) {
+        case 'add':
+            return firstValue + secondValue;
+        case 'subtract':
+            return firstValue - secondValue;
+        case 'multiply':
+            return firstValue * secondValue;
+        case 'divide':
+            return firstValue / secondValue;
+    }
+}*/
+
+/*function resetCalculator() {
+    output.innerHTML = '0';
+    preview.innerHTML = '0'
+    calculator.dataset.firstValue = '';
+    calculator.dataset.operator = '';
+    calculator.dataset.previousKeyType = '';
+}*/
+
+
