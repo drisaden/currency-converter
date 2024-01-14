@@ -231,37 +231,7 @@
     </div>
 </div>
 
-   <main class="px-10 mt-10">
-    <div class="mx-auto flex justify-center"> <button 
-      class="mt-10 cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium"
-      onclick="toggleBreakdown()">
-     <span class="text-sm">
-            <span id="toggleText">Show</span> keyboard
-            <i data-accordion-icon id="caretIcon" class="fa fa-caret-down ml-2"></i>
-          </span>
-  </button>
-</div>
-
-<div class="text-center w-full md:w-11/12 h-max mb-52 p-4 bg-white tx-diamond tx-2xl shadow-lg hidden" id="breakdown">
   
-              <div class="keyboard flex flex-wrap justify-evenly align-center gap-3">
-             <button id="seven" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
-              <button id="eight" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
-               <button id="nine" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</button>
-                <button id="four" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">4</button>
-                 <button id="five" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">5</button>
-                  <button id="six" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">6</button>
-                   <button id="one" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">1</button>
-                    <button id="two" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</button>
-                     <button id="three" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
-                      <button id="zero" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
-                       <button id="dotPeriod" class="w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
-                        <button id="deleteIcon" class="delete-icon w-3/12 p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
-            
-           </div>
-       </div>
-    
-    
     <div id="calculator-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
         <!-- Modal content -->
@@ -283,24 +253,40 @@
               
             
             <div id="" class="p-4 md:p-5 space-y-4">
-                
-               <div class="calculator flex flex-wrap justify-evenly align-center gap-3">
-             <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">7</button>
-              <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">8</button>
-               <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">9</button>
-                <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">4</button>
-                 <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">5</button>
-                  <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">6</button>
-                   <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">1</button>
-                    <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">2</button>
-                     <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">3</button>
-                      <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">0</button>
-                       <button class="calculator__key w-3/12 p-5 hover:rounded-lg hover:shadow-md">.</button>
-                        <button class="delete-icon w-3/12 p-5 hover:rounded-lg hover:shadow-md" data-action="decimal"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+                 <div class="calculator__display">0</div>
+               <div class="calculator flex justify-evenly align-center">
+                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border border-red-700">
+                <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">7</button>
+              <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">8</button>
+               <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">9</button>
+                <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">4</button>
+                 <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">5</button>
+                  <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">6</button>
+                   <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">1</button>
+                    <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">2</button>
+                     <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">3</button>
+                      <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">0</button>
+                          <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md" data-action="decimal">.</button>
+                        <button class="p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+                        <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md" data-action="clear">AC</button>
+    <button class="calculator__key calculator__key--equal p-5 hover:rounded-lg hover:shadow-md" data-action="calculate">=</button>
+                      </div>
+                      <div class="w-3/12">
+                      <div class="grid grid-cols-1 gap-4 align-center border border-red-700">
+                      <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="divide">÷</button>
+                      
+                        <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="multiply">×</button>
+                      
+                      <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="subtract">-</button>
+                    
+                      <button class="p-5 hover:rounded-lg hover:shadow-md calculator__key calculator__key--operator" data-action="add">+</button>
+                      </div>
+                   </div>
             
-           </div>
+           
                
             
+            </div>
             </div>
         </div>
     </div>
