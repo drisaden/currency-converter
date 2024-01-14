@@ -594,39 +594,82 @@ keys.forEach(key => {
             preview.textContent += key.innerHTML;
             calculator.dataset.previousKeyType = 'number';
         }
-
-        if (action === 'decimal') {
-            if (!displayedNum.includes('.')) {
-                output.textContent = displayedNum + '.';
-            }
-            if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
-                output.textContent = '0.';
-            }
-            calculator.dataset.previousKeyType = 'decimal';
-            preview.textContent = displayedNum;
-        }
-
-        if (action === 'calculate') {
-            const firstValue = calculator.dataset.firstValue;
-            const operator = calculator.dataset.operator;
-            const secondValue = displayedNum;
-
-            if (firstValue && operator && secondValue) {
-                const result = calculate(firstValue, operator, secondValue);
-                output.textContent = result;
-                preview.textContent = result;
-            }
-
-            calculator.dataset.previousKeyType = 'calculate';
-        }
-
-       
-       
-               // If the key is a clear key
+        
+                       // If the key is a clear key
         if (action === 'clear') {
           // Reset the calculator
           resetCalculator();
         } 
+
+        if (action === 'decimal') {
+            if (!displayedNum.includes('.')) {
+                output.textContent = displayedNum + '.';
+                preview.textContent = displayedNum + '.';
+            }
+            if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+                output.textContent = '0.';
+                preview.textContent = '0.';
+            }
+            calculator.dataset.previousKeyType = 'decimal';
+            preview.innerHTML = displayedNum;
+        }
+
+        if (action === 'calculate') {
+    const displayedNum = output.innerHTML;
+
+    // Use a regular expression to extract the operands and operator
+    const match = displayedNum.match(/^(\d+)\s*([+\-*/])\s*(\d+)$/);
+
+    if (match) {
+        const firstValue = parseFloat(match[1]);
+        const operator = match[2];  // Keep the operator as a string
+        const secondValue = parseFloat(match[3]);
+
+        // Log values for debugging
+        console.log(firstValue);
+        console.log(operator);
+        console.log(secondValue);
+
+        const result = calculate(firstValue, operator, secondValue);
+
+        // Update the output with the result
+        output.innerHTML = result;
+       // preview.innerHTML = result;
+
+        console.log(result);
+
+       calculator.dataset.previousKeyType = 'calculate';
+    }
+}
+
+function calculate(firstValue, operator, secondValue) {
+  /*  firstValue = parseFloat(firstValue);
+    secondValue = parseFloat(secondValue);*/
+
+    if (operator == '+') {
+        return firstValue + secondValue;
+    } else if (operator == '-') {
+        return firstValue - secondValue;
+    } else if (operator == 'x') {
+        return firstValue * secondValue;
+    } else if (operator == '÷') {
+        if (secondValue !== 0) {
+            return firstValue / secondValue;
+        } else {
+            // Handle division by zero error
+            return "Error: Division by zero";
+        }
+    } else {
+        // Handle unknown operator error
+        return "Error: Unknown operator";
+    }
+}
+
+
+
+       
+       
+
     });
 });
 
@@ -646,7 +689,7 @@ const backspace = () => {
     
     
 
-function calculate(firstValue, operator, secondValue) {
+/*function calculate(firstValue, operator, secondValue) {
     firstValue = parseFloat(firstValue);
     secondValue = parseFloat(secondValue);
 
@@ -660,7 +703,7 @@ function calculate(firstValue, operator, secondValue) {
         case 'divide':
             return firstValue / secondValue;
     }
-}
+}*/
 
 function resetCalculator() {
     output.innerHTML = '0';
