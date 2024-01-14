@@ -161,7 +161,7 @@
              <div
                 class="text-center w-full h-max mt-10 mb-52 p-4 bg-white tx-diamond tx-xl shadow-lg rounded-md relative">
             <div class="flex align-center justify-between"><p class="font-light tx-mont text-sm">Choose the two currencies you're converting</p>
-              <button data-modal-target="calcultor-modal" data-modal-toggle="calculator-modal" class="mb-10 focus:outline-none focus:ring-0 block tx-diamond  font-semibold md:font-medium relative" type="button"><i class="fa fa-calculator fa-2xl"></i></button>
+              <button data-modal-target="calcultor-modal" data-modal-toggle="calculator-modal" class="mb-10 focus:outline-none focus:ring-0 block tx-diamond  font-semibold md:font-medium relative" type="button"><i class="fa fa-calculator fa-xl"></i></button>
              
              </div>
              
@@ -253,9 +253,12 @@
               
             
             <div id="" class="p-4 md:p-5 space-y-4">
-                 <div class="calculator__display">0</div>
+                 <div class="calculator__display text-right border-0 rounded-md bg-gray-100 w-full h-20 pr-5 py-5 focus:outline-none focus:ring-1 focus:ring-blue-100"><p id="input" class="block tx-2xl text-2xl">
+                   0</p>
+                   <p id="preview" class="text-gray-700 tx-xl text-xl">0</p>
+                   </div>
                <div class="calculator flex justify-evenly align-center">
-                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border-r border-gray-400">
+                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border-r border-gray-300">
                 <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">7</button>
               <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">8</button>
                <button class="calculator__key p-5 hover:rounded-lg hover:shadow-md">9</button>
