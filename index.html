@@ -590,7 +590,8 @@ keys.forEach(key => {
 
         if (!action || action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide') {
             output.textContent += key.textContent;
-            preview.textContent = displayedNum;
+            //const firstValue = calculator.dataset.firstValue;
+            preview.textContent += key.innerHTML;
             calculator.dataset.previousKeyType = 'number';
         }
 
@@ -619,9 +620,13 @@ keys.forEach(key => {
             calculator.dataset.previousKeyType = 'calculate';
         }
 
-        
-
-        
+       
+       
+               // If the key is a clear key
+        if (action === 'clear') {
+          // Reset the calculator
+          resetCalculator();
+        } 
     });
 });
 
@@ -658,7 +663,8 @@ function calculate(firstValue, operator, secondValue) {
 }
 
 function resetCalculator() {
-    output.textContent = '0';
+    output.innerHTML = '0';
+    preview.innerHTML = '0'
     calculator.dataset.firstValue = '';
     calculator.dataset.operator = '';
     calculator.dataset.previousKeyType = '';
