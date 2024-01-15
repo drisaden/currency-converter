@@ -237,10 +237,13 @@ updateFavoriteCurrencies();
           return;
         }
         
-        // Save selected currencies as favorites
-        favoriteCurrencies.from = fromCurrency;
-        favoriteCurrencies.to = toCurrency;
-        localStorage.setItem('favoriteCurrencies', JSON.stringify(favoriteCurrencies));
+// Save selected currencies as favorites
+    favoriteCurrencies.from = fromCurrency;
+    favoriteCurrencies.to = toCurrency;
+    localStorage.setItem('favoriteCurrencies', JSON.stringify(favoriteCurrencies));
+
+    // Update and display favorite currencies
+    updateFavoriteCurrencies();
 
         // Call the conversion API
         const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
