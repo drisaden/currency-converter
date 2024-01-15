@@ -160,9 +160,6 @@ window.onload = async () => {
     const spinner = document.getElementById('spinner');
     spinner.style.display = 'block';
 
-// Load favorite currencies from localStorage
-    const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};
-
     
     // Fetch all currencies and their names
     const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
@@ -186,6 +183,11 @@ window.onload = async () => {
 
     // Hide spinner after successful currencies API response
     spinner.style.display = 'none';
+    
+    // Load favorite currencies from localStorage
+    const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};
+
+    
 
     // Event listener for the convert button
     const convertButton = document.getElementById('convertButton');
@@ -204,6 +206,11 @@ window.onload = async () => {
           alert('Invalid currency selection');
           return;
         }
+        
+        // Save selected currencies as favorites
+        favoriteCurrencies.from = fromCurrency;
+        favoriteCurrencies.to = toCurrency;
+        localStorage.setItem('favoriteCurrencies', JSON.stringify(favoriteCurrencies));
 
         // Call the conversion API
         const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
