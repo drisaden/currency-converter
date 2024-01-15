@@ -188,62 +188,54 @@ window.onload = async () => {
     const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};*/
     
     // Inside the window.onload function, after fetching currenciesData
+// Inside the window.onload function, after fetching currenciesData
 const favoriteCurrenciesContainer = document.getElementById('favoriteCurrencies');
+const recentFavoritesContainer = document.getElementById('recentFavorites');
 
 // Function to update and display favorite currencies
 function updateFavoriteCurrencies() {
-  const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};
+  const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || [];
+  
+  // Display only the last five favorite currency conversions
+  const lastFiveFavorites = favoriteCurrencies.slice(-5);
 
   // Clear previous favorites
   favoriteCurrenciesContainer.innerHTML = '';
 
   // Check if there are favorite currencies
-  if (favoriteCurrencies.from && favoriteCurrencies.to) {
-    // Create elements for favorite currencies
-    const favoriteFrom = document.createElement('div');
-    favoriteFrom.innerHTML = `<span class="font-bold tx-diamond">${favoriteCurrencies.from}</span>`;
-    favoriteCurrenciesContainer.appendChild(favoriteFrom);
+  if (lastFiveFavorites.length > 0) {
+    lastFiveFavorites.forEach((favorite, index) => {
+      // Create elements for favorite currencies
+      const favoriteFrom = document.createElement('div');
+      favoriteFrom.innerHTML = `<span class="font-bold tx-diamond">${favorite.from}</span>`;
+      favoriteCurrenciesContainer.appendChild(favoriteFrom);
 
-    const exchangeIcon = document.createElement('i');
-    exchangeIcon.classList.add('fa', 'fa-exchange', 'fa-sm', 'ml-2');
-    favoriteCurrenciesContainer.appendChild(exchangeIcon);
+      const exchangeIcon = document.createElement('i');
+      exchangeIcon.classList.add('fa', 'fa-exchange', 'fa-sm', 'ml-2');
+      favoriteCurrenciesContainer.appendChild(exchangeIcon);
 
-    const favoriteTo = document.createElement('div');
-    favoriteTo.innerHTML = `<span class="font-bold tx-diamond">${favoriteCurrencies.to}</span>`;
-    favoriteCurrenciesContainer.appendChild(favoriteTo);
+      const favoriteTo = document.createElement('div');
+      favoriteTo.innerHTML = `<span class="font-bold tx-diamond">${favorite.to}</span>`;
+      favoriteCurrenciesContainer.appendChild(favoriteTo);
+
+      // Display figures converted
+      const figureConverted = document.createElement('div');
+      figureConverted.innerHTML = `<span class="font-bold tx-diamond">${favorite.figureConverted.toFixed(2)}</span>`;
+      favoriteCurrenciesContainer.appendChild(figureConverted);
+
+      // Add a separator between entries, except for the last one
+      if (index < lastFiveFavorites.length - 1) {
+        const separator = document.createElement('span');
+        separator.innerHTML = ' | ';
+        favoriteCurrenciesContainer.appendChild(separator);
+      }
+    });
   }
 }
 
 // Call the function to display favorite currencies on page load
 updateFavoriteCurrencies();
 
-    
-
-    // Event listener for the convert button
-    const convertButton = document.getElementById('convertButton');
-    convertButton.addEventListener('click', async () => {
-      try {
-        // Show spinner during API call
-      //  spinner.style.display = 'block';
-
-        // Get selected currencies and amount
-        const fromCurrency = document.getElementById('fromCurrency').value;
-        const toCurrency = document.getElementById('toCurrency').value;
-        const amount = parseFloat(document.getElementById('display').value);
-
-        // Check if the selected currencies are valid
-        if (!currenciesData.currencies[fromCurrency] || !currenciesData.currencies[toCurrency]) {
-          alert('Invalid currency selection');
-          return;
-        }
-        
-// Save selected currencies as favorites
-    favoriteCurrencies.from = fromCurrency;
-    favoriteCurrencies.to = toCurrency;
-    localStorage.setItem('favoriteCurrencies', JSON.stringify(favoriteCurrencies));
-
-    // Update and display favorite currencies
-    updateFavoriteCurrencies();
 
         // Call the conversion API
         const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
