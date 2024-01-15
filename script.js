@@ -184,8 +184,38 @@ window.onload = async () => {
     // Hide spinner after successful currencies API response
     spinner.style.display = 'none';
     
-    // Load favorite currencies from localStorage
-    const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};
+   /* // Load favorite currencies from localStorage
+    const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};*/
+    
+    // Inside the window.onload function, after fetching currenciesData
+const favoriteCurrenciesContainer = document.getElementById('favoriteCurrencies');
+
+// Function to update and display favorite currencies
+function updateFavoriteCurrencies() {
+  const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || {};
+
+  // Clear previous favorites
+  favoriteCurrenciesContainer.innerHTML = '';
+
+  // Check if there are favorite currencies
+  if (favoriteCurrencies.from && favoriteCurrencies.to) {
+    // Create elements for favorite currencies
+    const favoriteFrom = document.createElement('div');
+    favoriteFrom.innerHTML = `<span class="font-bold tx-diamond">${favoriteCurrencies.from}</span>`;
+    favoriteCurrenciesContainer.appendChild(favoriteFrom);
+
+    const exchangeIcon = document.createElement('i');
+    exchangeIcon.classList.add('fa', 'fa-exchange', 'fa-sm', 'ml-2');
+    favoriteCurrenciesContainer.appendChild(exchangeIcon);
+
+    const favoriteTo = document.createElement('div');
+    favoriteTo.innerHTML = `<span class="font-bold tx-diamond">${favoriteCurrencies.to}</span>`;
+    favoriteCurrenciesContainer.appendChild(favoriteTo);
+  }
+}
+
+// Call the function to display favorite currencies on page load
+updateFavoriteCurrencies();
 
     
 
