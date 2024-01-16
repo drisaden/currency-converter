@@ -347,22 +347,39 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
 
   // Check if the current conversion is the same as the previous one
   if (previousConversion !== newRow.innerHTML) {
-    // Limit displayed conversions to the latest five
-    const existingConversions = recentConversionContainer.getElementsByTagName('tbody');
-    if (existingConversions.length >= 5) {
-      // Check if the last conversion is a child before trying to remove it
-      if (recentConversionContainer.contains(existingConversions[existingConversions.length - 1])) {
-        recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
-      }
-    }
-
     // Insert the new row at the beginning (on top)
     recentConversionContainer.prepend(newRow);
 
     // Update previousConversion
     previousConversion = newRow.innerHTML;
+
+    // Limit displayed conversions to the latest five
+    const existingConversions = recentConversionContainer.getElementsByTagName('tbody');
+    if (existingConversions.length >= 5) {
+      recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
+    }
   }
 }
+
+/*// Event listener for the "showAll" button
+document.getElementById('showAll').addEventListener('click', () => {
+  // Remove any existing limit on displayed conversions
+  const recentConversionContainer = document.getElementById('recentConversion');
+  const existingConversions = recentConversionContainer.getElementsByTagName('tbody');
+  for (let i = 0; i < existingConversions.length; i++) {
+    recentConversionContainer.removeChild(existingConversions[i]);
+  }
+});*/
+
+document.getElementById('clearAll').addEventListener('click', () => {
+  // Clear only the rows
+  const recentConversionContainer = document.getElementById('recentConversion');
+  const rows = recentConversionContainer.getElementsByTagName('tbody');
+  while (rows.length > 0) {
+    recentConversionContainer.removeChild(rows[0]);
+  }
+  previousConversion = null;
+});
 
 
 let display = document.getElementById('display');
