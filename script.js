@@ -17,7 +17,7 @@ function toggleBreakdown() {
 /*window.onload = async () => {
   try {
     // Fetch all currencies and their names
-    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=554a18ba39-e8eac7597e-s7bta8');
     
     const currenciesData = await currenciesResponse.json();
     
@@ -49,7 +49,7 @@ function toggleBreakdown() {
       }
 
       // Call the conversion API
-      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
       
 
@@ -79,7 +79,7 @@ function toggleBreakdown() {
 /*window.onload = async () => {
   try {
     // Fetch all currencies and their names
-    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=554a18ba39-e8eac7597e-s7bta8');
     const currenciesData = await currenciesResponse.json();
 
     // Populate currency select options
@@ -108,7 +108,7 @@ function toggleBreakdown() {
       }
 
       // Call the conversion API
-      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+      const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
       try {
         const conversionApiResponse = await fetch(conversionApiUrl);
@@ -122,7 +122,7 @@ function toggleBreakdown() {
         document.getElementById('resultInput').value = convertedAmount.toFixed(2);
 
         // Fetch conversion rates for all currencies
-        const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+        const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
         try {
           const conversionRatesResponse = await fetch(conversionRatesApiUrl);
@@ -160,15 +160,14 @@ window.onload = async () => {
     const spinner = document.getElementById('spinner');
     spinner.style.display = 'block';
 
-    
     // Fetch all currencies and their names
-    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=554a18ba39-e8eac7597e-s7bta8');
     const currenciesData = await currenciesResponse.json();
-    
-    const singleCurrencyResponse = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw');
-          const singleCurrencyData = await singleCurrencyResponse.json();
-          const singleCurrencyRate = singleCurrencyData.result.NGN;
-          document.getElementById('resultInput').placeholder = `1 USD = ${singleCurrencyRate.toFixed(2)} NGN`;
+
+    const singleCurrencyResponse = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8');
+    const singleCurrencyData = await singleCurrencyResponse.json();
+    const singleCurrencyRate = singleCurrencyData.result.NGN;
+    document.getElementById('resultInput').placeholder = `1 USD = ${singleCurrencyRate.toFixed(2)} NGN`;
 
     // Populate currency select options
     const currencySelects = document.querySelectorAll('.currency-select');
@@ -183,65 +182,14 @@ window.onload = async () => {
 
     // Hide spinner after successful currencies API response
     spinner.style.display = 'none';
-    
-    // Load favorite currencies from localStorage
-    // Inside the window.onload function, after fetching currenciesData
-const favoriteCurrenciesContainer = document.getElementById('favoriteCurrencies');
-const recentFavoritesContainer = document.getElementById('recentFavorites');
 
-// Function to update and display favorite currencies
-function updateFavoriteCurrencies() {
-  const favoriteCurrencies = JSON.parse(localStorage.getItem('favoriteCurrencies')) || [];
-  
-  // Display only the last five favorite currency conversions
-  const lastFiveFavorites = favoriteCurrencies.slice(-5);
-
-  // Clear previous favorites
-  favoriteCurrenciesContainer.innerHTML = '';
-
-  // Check if there are favorite currencies
-  if (lastFiveFavorites.length > 0) {
-    lastFiveFavorites.forEach((favorite, index) => {
-      // Create elements for favorite currencies
-      const favoriteFrom = document.createElement('div');
-      favoriteFrom.innerHTML = `<span class="font-bold tx-diamond">${favorite.from}</span>`;
-      favoriteCurrenciesContainer.appendChild(favoriteFrom);
-
-      const exchangeIcon = document.createElement('i');
-      exchangeIcon.classList.add('fa', 'fa-exchange', 'fa-sm', 'ml-2');
-      favoriteCurrenciesContainer.appendChild(exchangeIcon);
-
-      const favoriteTo = document.createElement('div');
-      favoriteTo.innerHTML = `<span class="font-bold tx-diamond">${favorite.to}</span>`;
-      favoriteCurrenciesContainer.appendChild(favoriteTo);
-
-      // Display figures converted
-      const figureConverted = document.createElement('div');
-      figureConverted.innerHTML = `<span class="font-bold tx-diamond">${favorite.figureConverted.toFixed(2)}</span>`;
-      favoriteCurrenciesContainer.appendChild(figureConverted);
-
-      // Add a separator between entries, except for the last one
-      if (index < lastFiveFavorites.length - 1) {
-        const separator = document.createElement('span');
-        separator.innerHTML = ' | ';
-        favoriteCurrenciesContainer.appendChild(separator);
-      }
-    });
-  }
-}
-
-// Call the function to display favorite currencies on page load
-updateFavoriteCurrencies();
-
-
-    
+ 
 
     // Event listener for the convert button
     const convertButton = document.getElementById('convertButton');
     convertButton.addEventListener('click', async () => {
       try {
-        // Show spinner during API call
-      //  spinner.style.display = 'block';
+    
 
         // Get selected currencies and amount
         const fromCurrency = document.getElementById('fromCurrency').value;
@@ -254,8 +202,10 @@ updateFavoriteCurrencies();
           return;
         }
 
+      
+
         // Call the conversion API
-        const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+        const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
         try {
           const conversionApiResponse = await fetch(conversionApiUrl);
@@ -268,7 +218,7 @@ updateFavoriteCurrencies();
           document.getElementById('resultInput').value = convertedAmount.toFixed(2);
 
           // Fetch conversion rates for all currencies
-          const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+          const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
           try {
             const conversionRatesResponse = await fetch(conversionRatesApiUrl);
@@ -300,7 +250,7 @@ updateFavoriteCurrencies();
         // Hide spinner on error and show alert
         console.error('Error calling conversion API:', error);
         alert('Failed to convert. Please try again.');
-       // spinner.style.display = 'none';
+        // spinner.style.display = 'none';
       }
     });
 
@@ -309,14 +259,12 @@ updateFavoriteCurrencies();
       select.addEventListener('change', async () => {
         try {
           // Show spinner during API call
-        //  spinner.style.display = 'block';
-
           // Get selected currencies and update placeholder text
           const fromCurrency = document.getElementById('fromCurrency').value;
           const toCurrency = document.getElementById('toCurrency').value;
 
           // Update placeholder text based on selected currencies
-          const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+          const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8`);
           const singleCurrencyData = await singleCurrencyResponse.json();
           const singleCurrencyRate = singleCurrencyData.result[toCurrency];
           document.getElementById('resultInput').placeholder = `1 ${fromCurrency} = ${singleCurrencyRate.toFixed(2)} ${toCurrency}`;
@@ -328,16 +276,17 @@ updateFavoriteCurrencies();
           // Hide spinner after successful or failed API calls
           spinner.style.display = 'none';
         }*/
-     });
+      });
     });
   } catch (error) {
-    // Hide spinner on error and show alert
-    console.error('Error on page load:', error);
-    //alert('Failed to load data. Please reload the page.');
-    spinner.style.display = 'block';
+    // Log the error details to the console for debugging
+    console.error('Error on page load:', error.message, error.stack);
+        spinner.style.display = 'block';
+
+    // Alert the user about the error
+    alert('Failed to load data. Please reload the page.');
   }
 };
-
 
 let display = document.getElementById('display');
  function validateInput(input) {
@@ -414,7 +363,7 @@ exchangeButton.addEventListener('click', async () => {
   const swappedFromCurrency = fromCurrencySelect.value;
   const swappedToCurrency = toCurrencySelect.value;
   
-  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8`);
   const singleCurrencyData = await singleCurrencyResponse.json();
   const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
   document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
@@ -438,10 +387,10 @@ document.querySelectorAll('.currency-select').forEach(select => {
     spinner.style.display = 'block';
 
     // Fetch all currencies and their names
-    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const currenciesResponse = await fetch('https://api.fastforex.io/currencies?api_key=554a18ba39-e8eac7597e-s7bta8');
     const currenciesData = await currenciesResponse.json();
     
-    const singleCurrencyResponse = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw');
+    const singleCurrencyResponse = await fetch('https://api.fastforex.io/convert?from=USD&to=NGN&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8');
           const singleCurrencyData = await singleCurrencyResponse.json();
           const singleCurrencyRate = singleCurrencyData.result.NGN;
           document.getElementById('resultInput').placeholder = `1 USD = ${singleCurrencyRate.toFixed(2)} NGN`;
@@ -479,7 +428,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
         }
 
         // Call the conversion API
-        const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+        const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
         try {
           const conversionApiResponse = await fetch(conversionApiUrl);
@@ -492,7 +441,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
           document.getElementById('resultInput').value = convertedAmount.toFixed(2);
 
           // Fetch conversion rates for all currencies
-          const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=741059c5b3-8b544bdd4d-s6zcfw`;
+          const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=554a18ba39-e8eac7597e-s7bta8`;
 
           try {
             const conversionRatesResponse = await fetch(conversionRatesApiUrl);
@@ -537,7 +486,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
           const toCurrency = document.getElementById('toCurrency').value;
 
           // Update placeholder text based on selected currencies
-          const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+          const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8`);
           const singleCurrencyData = await singleCurrencyResponse.json();
           const singleCurrencyRate = singleCurrencyData.result[toCurrency];
           document.getElementById('resultInput').placeholder = `1 ${fromCurrency} = ${singleCurrencyRate.toFixed(2)} ${toCurrency}`;
@@ -632,7 +581,7 @@ exchangeButton.addEventListener('click', async () => {
   const swappedFromCurrency = fromCurrencySelect.value;
   const swappedToCurrency = toCurrencySelect.value;
   
-  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8`);
   const singleCurrencyData = await singleCurrencyResponse.json();
   const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
   document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
@@ -724,7 +673,7 @@ exchangeButton.addEventListener('click', async () => {
   const swappedFromCurrency = fromCurrencySelect.value;
   const swappedToCurrency = toCurrencySelect.value;
   
-  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=741059c5b3-8b544bdd4d-s6zcfw`);
+  const singleCurrencyResponse = await fetch(`https://api.fastforex.io/convert?from=${swappedFromCurrency}&to=${swappedToCurrency}&amount=1&api_key=554a18ba39-e8eac7597e-s7bta8`);
   const singleCurrencyData = await singleCurrencyResponse.json();
   const singleCurrencyRate = singleCurrencyData.result[swappedToCurrency];
   document.getElementById('resultInput').placeholder = `1 ${swappedFromCurrency} = ${singleCurrencyRate.toFixed(2)} ${swappedToCurrency}`;
