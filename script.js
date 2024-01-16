@@ -183,14 +183,10 @@ window.onload = async () => {
     // Hide spinner after successful currencies API response
     spinner.style.display = 'none';
 
- 
-
     // Event listener for the convert button
     const convertButton = document.getElementById('convertButton');
     convertButton.addEventListener('click', async () => {
       try {
-    
-
         // Get selected currencies and amount
         const fromCurrency = document.getElementById('fromCurrency').value;
         const toCurrency = document.getElementById('toCurrency').value;
@@ -201,8 +197,6 @@ window.onload = async () => {
           alert('Invalid currency selection');
           return;
         }
-
-      
 
         // Call the conversion API
         const conversionApiUrl = `https://api.fastforex.io/convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}&api_key=554a18ba39-e8eac7597e-s7bta8`;
@@ -216,6 +210,9 @@ window.onload = async () => {
 
           // Display the result in the second input
           document.getElementById('resultInput').value = convertedAmount.toFixed(2);
+
+          // Record the conversion in the recentConversion div
+          recordConversion(fromCurrency, amount, toCurrency, convertedAmount);
 
           // Fetch conversion rates for all currencies
           const conversionRatesApiUrl = `https://api.fastforex.io/fetch-all?from=${fromCurrency}&api_key=554a18ba39-e8eac7597e-s7bta8`;
@@ -242,14 +239,11 @@ window.onload = async () => {
           }
         } catch (error) {
           console.error('Error calling conversion API:', error);
-        } /*finally {
-          // Hide spinner after successful or failed API calls
-          spinner.style.display = 'none';
-        }*/
+        }
       } catch (error) {
         // Hide spinner on error and show alert
         console.error('Error calling conversion API:', error);
-        alert('Failed to convert. Please try again.');
+        //alert('Failed to convert. Please try again.');
         // spinner.style.display = 'none';
       }
     });
@@ -281,12 +275,39 @@ window.onload = async () => {
   } catch (error) {
     // Log the error details to the console for debugging
     console.error('Error on page load:', error.message, error.stack);
-        spinner.style.display = 'block';
+    spinner.style.display = 'block';
 
     // Alert the user about the error
     alert('Failed to load data. Please reload the page.');
   }
 };
+
+function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
+  const recentConversionContainer = document.getElementById('recentConversion');
+
+  // Create a new row with four columns using the provided template
+  const newRow = document.createElement('div');
+  newRow.innerHTML = `
+    <div class="flex justify-between mt-5 align-center gap-4 align-center border-t border-gray-300">
+      <div class="">
+      <p class="ml-5">From</p>
+        <div class="fromCurrency font-light tx-diamond m-5">${fromCurrency}</div>
+        
+        <div class="fromAmount font-semibold tx-diamond m-5">${amount.toFixed(2)}</div>
+      </div>
+      <div>
+      <p class="ml-5">To</p>
+        <div class="toCurrency font-light tx-diamond m-5">${toCurrency}</div>
+        <div class="toAmount font-semibold tx-diamond m-5">${convertedAmount.toFixed(2)}</div>
+      </div>
+    </div>
+  `;
+
+  // Insert the new row at the beginning (on top)
+  recentConversionContainer.insertBefore(newRow, recentConversionContainer.firstChild);
+}
+
+
 
 let display = document.getElementById('display');
  function validateInput(input) {
