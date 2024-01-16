@@ -323,17 +323,28 @@
            </div>
        </div>
    
+<div class="flex justify-between align-center">
 <div class="tx-mont font-bold text-xl p-5">
-  Recent Conversion 
+  Recent Conversion
+</div>   
+  
   <div class="">
-    <div class="">
-      ...
-    </div>
-    <div class="flex flex-col justify-between align-center">
-      <button id="showAll" class="cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium">Show All</button>
-      <button id="clearAll" class="cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium">Clear All</button>
-    </div>
-  </div>
+<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="cursor-pointer text-center p-5 focus:ring-none focus:outline-none dark:focus:ring-white hover:bg-white dark:hover:bg-white font-medium" type="button"><i class="fa fa-ellipsis-v"></i>
+</button>
+
+<!-- Dropdown menu -->
+<div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+      <li>
+        <a href="#" id="showAll" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show All</a>
+      </li>
+      <li>
+        <a href="#" id="clearAll" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Clear All</a>
+      </li>
+    </ul>
+</div>
+
+</div>
 </div>
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
