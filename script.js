@@ -282,7 +282,7 @@ window.onload = async () => {
   }
 };
 
-let previousConversion = null;
+/*let previousConversion = null;
 
 function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   const recentConversionContainer = document.getElementById('recentConversion');
@@ -311,12 +311,56 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
 
     // Update previousConversion
     previousConversion = newRow.innerHTML;
-
+//console.log(recentConversionContainer)
     // Limit displayed conversions to the latest five
-    const existingConversions = recentConversionContainer.getElementsByTagName('tr');
+    //const existingConversions = recentConversionContainer.getElementsByTagName('tr');
+   const existingConversions = recentConversionContainer.getElementsByTagName('body');
+   console.log(existingConversions)
+    
     if (existingConversions.length >= 5) {
-      recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
+      previousConversion.removeChild(existingConversions[existingConversions.length - 1]);
     }
+  }
+}*/
+
+let previousConversion = null;
+
+function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
+  const recentConversionContainer = document.getElementById('recentConversion');
+
+  // Create a new row with four columns using the provided template
+  const newRow = document.createElement('tbody');
+  newRow.innerHTML = `<tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    ${fromCurrency}
+                </th>
+                <td class="px-6 py-4">
+                    ${amount.toFixed(2)}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    ${toCurrency}
+                </td>
+                <td class="px-6 py-4">
+                    ${convertedAmount.toFixed(2)}
+                </td>
+            </tr>`;
+
+  // Check if the current conversion is the same as the previous one
+  if (previousConversion !== newRow.innerHTML) {
+    // Limit displayed conversions to the latest five
+    const existingConversions = recentConversionContainer.getElementsByTagName('tbody');
+    if (existingConversions.length >= 5) {
+      // Check if the last conversion is a child before trying to remove it
+      if (recentConversionContainer.contains(existingConversions[existingConversions.length - 1])) {
+        recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
+      }
+    }
+
+    // Insert the new row at the beginning (on top)
+    recentConversionContainer.prepend(newRow);
+
+    // Update previousConversion
+    previousConversion = newRow.innerHTML;
   }
 }
 
