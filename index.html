@@ -323,11 +323,35 @@
            </div>
        </div>
    
-<div>
+<div class="tx-mont font-bold text-xl p-5">
   Recent Conversion 
 </div>
- <div id="recentConversion" class="flex flex-col justify-evenly align-center m-3">
-  <!--<div class="">
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table id="recentConversion"  class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    From
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Amount
+                </th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                    to
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Amount
+                </th>
+            </tr>
+        </thead>
+       
+    </table>
+</div>
+
+<!-- <div id="recentConversion" class="flex flex-col justify-evenly align-center m-3">
+  
+  <div class="">
   <div class="fromCurrency">
   </div>
   <div class="fromAmount">
@@ -338,8 +362,8 @@
   </div>
   <div class="toAmount">
   </div>
-  </div>-->
-</div>
+  </div>
+</div>-->
    </main>
 
     <!-- Footer section -->

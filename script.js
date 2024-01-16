@@ -286,25 +286,42 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   const recentConversionContainer = document.getElementById('recentConversion');
 
   // Create a new row with four columns using the provided template
-  const newRow = document.createElement('div');
-  newRow.innerHTML = `
-    <div class="flex justify-between mt-5 align-center gap-4 align-center border-t border-gray-300">
-      <div class="">
-      <p class="ml-5">From</p>
-        <div class="fromCurrency font-light tx-diamond m-5">${fromCurrency}</div>
+ 
+const newRow = document.createElement('tbody');
+//newRow.classList.add('flex', 'justify-between', 'mt-5', 'align-center', 'border-t', 'border-gray-300');
+      
+  newRow.innerHTML = `<tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    ${fromCurrency}
+                </th>
+                <td class="px-6 py-4">
+                    ${amount.toFixed(2)}
+                </td>
+                <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                    ${toCurrency}
+                </td>
+                <td class="px-6 py-4">
+                    ${convertedAmount.toFixed(2)}
+                </td>
+            </tr>`;
+/*newRow.innerHTML = `
+   
+      <div>
+        <div class="fromCurrency font-light tx-diamond">${fromCurrency}</div>
         
-        <div class="fromAmount font-semibold tx-diamond m-5">${amount.toFixed(2)}</div>
+        <div class="fromAmount font-semibold tx-diamond">${amount.toFixed(2)}</div>
       </div>
       <div>
-      <p class="ml-5">To</p>
-        <div class="toCurrency font-light tx-diamond m-5">${toCurrency}</div>
-        <div class="toAmount font-semibold tx-diamond m-5">${convertedAmount.toFixed(2)}</div>
+        <div class="toCurrency font-light tx-diamond">${toCurrency}</div>
+        <div class="toAmount font-semibold tx-diamond">${convertedAmount.toFixed(2)}</div>
       </div>
-    </div>
-  `;
+    
+  `;*/
 
   // Insert the new row at the beginning (on top)
-  recentConversionContainer.insertBefore(newRow, recentConversionContainer.firstChild);
+ // recentConversionContainer.insertBefore(newRow, recentConversionContainer.firstChild);
+  recentConversionContainer.prepend(newRow);
+
 }
 
 
