@@ -282,6 +282,8 @@ window.onload = async () => {
   }
 };
 
+let previousConversion = null;
+
 function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   const recentConversionContainer = document.getElementById('recentConversion');
 
@@ -294,7 +296,7 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
                 <td class="px-6 py-4">
                     ${amount.toFixed(2)}
                 </td>
-                <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                     ${toCurrency}
                 </td>
                 <td class="px-6 py-4">
@@ -302,15 +304,16 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
                 </td>
             </tr>`;
 
-  // Check if the same conversion already exists
-  const existingConversions = recentConversionContainer.getElementsByTagName('tr');
-  const existingConversionValues = Array.from(existingConversions).map((row) => row.innerHTML);
-
-  if (!existingConversionValues.includes(newRow.innerHTML)) {
+  // Check if the current conversion is the same as the previous one
+  if (previousConversion !== newRow.innerHTML) {
     // Insert the new row at the beginning (on top)
     recentConversionContainer.prepend(newRow);
 
+    // Update previousConversion
+    previousConversion = newRow.innerHTML;
+
     // Limit displayed conversions to the latest five
+    const existingConversions = recentConversionContainer.getElementsByTagName('tr');
     if (existingConversions.length >= 5) {
       recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
     }
