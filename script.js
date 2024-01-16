@@ -286,10 +286,7 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   const recentConversionContainer = document.getElementById('recentConversion');
 
   // Create a new row with four columns using the provided template
- 
-const newRow = document.createElement('tbody');
-//newRow.classList.add('flex', 'justify-between', 'mt-5', 'align-center', 'border-t', 'border-gray-300');
-      
+  const newRow = document.createElement('tbody');
   newRow.innerHTML = `<tr class="border-b border-gray-200 dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                     ${fromCurrency}
@@ -304,26 +301,21 @@ const newRow = document.createElement('tbody');
                     ${convertedAmount.toFixed(2)}
                 </td>
             </tr>`;
-/*newRow.innerHTML = `
-   
-      <div>
-        <div class="fromCurrency font-light tx-diamond">${fromCurrency}</div>
-        
-        <div class="fromAmount font-semibold tx-diamond">${amount.toFixed(2)}</div>
-      </div>
-      <div>
-        <div class="toCurrency font-light tx-diamond">${toCurrency}</div>
-        <div class="toAmount font-semibold tx-diamond">${convertedAmount.toFixed(2)}</div>
-      </div>
-    
-  `;*/
 
-  // Insert the new row at the beginning (on top)
- // recentConversionContainer.insertBefore(newRow, recentConversionContainer.firstChild);
-  recentConversionContainer.prepend(newRow);
+  // Check if the same conversion already exists
+  const existingConversions = recentConversionContainer.getElementsByTagName('tr');
+  const existingConversionValues = Array.from(existingConversions).map((row) => row.innerHTML);
 
+  if (!existingConversionValues.includes(newRow.innerHTML)) {
+    // Insert the new row at the beginning (on top)
+    recentConversionContainer.prepend(newRow);
+
+    // Limit displayed conversions to the latest five
+    if (existingConversions.length >= 5) {
+      recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
+    }
+  }
 }
-
 
 
 let display = document.getElementById('display');
