@@ -156,6 +156,7 @@ function toggleBreakdown() {
 
 window.onload = async () => {
   try {
+ 
     // Show spinner on page load
     const spinner = document.getElementById('spinner');
     spinner.style.display = 'block';
@@ -280,6 +281,14 @@ window.onload = async () => {
     // Alert the user about the error
     alert('Failed to load data. Please reload the page.');
   }
+  
+  const recentConversionContainer = document.getElementById('recentConversion');
+  const storedConversions = JSON.parse(localStorage.getItem('recentConversions')) || [];
+  storedConversions.forEach((conversion) => {
+    const newRow = document.createElement('tbody');
+    newRow.innerHTML = conversion;
+    recentConversionContainer.appendChild(newRow);
+  });
 };
 
 /*let previousConversion = null;
@@ -323,7 +332,7 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   }
 }*/
 
-let previousConversion = null;
+/*let previousConversion = null;
 
 function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
   const recentConversionContainer = document.getElementById('recentConversion');
@@ -359,7 +368,7 @@ function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
       recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
     }
   }
-}
+}*/
 
 /*// Event listener for the "showAll" button
 document.getElementById('showAll').addEventListener('click', () => {
@@ -371,6 +380,68 @@ document.getElementById('showAll').addEventListener('click', () => {
   }
 });*/
 
+/*document.getElementById('clearAll').addEventListener('click', () => {
+  // Clear only the rows
+  const recentConversionContainer = document.getElementById('recentConversion');
+  const rows = recentConversionContainer.getElementsByTagName('tbody');
+  while (rows.length > 0) {
+    recentConversionContainer.removeChild(rows[0]);
+  }
+  previousConversion = null;
+});*/
+
+let previousConversion = null;
+
+function recordConversion(fromCurrency, amount, toCurrency, convertedAmount) {
+  const recentConversionContainer = document.getElementById('recentConversion');
+
+  // Create a new row with four columns using the provided template
+  const newRow = document.createElement('tbody');
+  newRow.innerHTML = `<tr class="border-b border-gray-200 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    ${fromCurrency}
+                </th>
+                <td class="px-6 py-4">
+                    ${amount.toFixed(2)}
+                </td>
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                    ${toCurrency}
+                </td>
+                <td class="px-6 py-4">
+                    ${convertedAmount.toFixed(2)}
+                </td>
+            </tr>`;
+
+  // Check if the current conversion is the same as the previous one
+  if (previousConversion !== newRow.innerHTML) {
+    // Insert the new row at the beginning (on top)
+    recentConversionContainer.prepend(newRow);
+
+    // Update previousConversion
+    previousConversion = newRow.innerHTML;
+
+    // Save the recent conversions in localStorage
+    saveToLocalStorage();
+
+    // Limit displayed conversions to the latest five
+    const existingConversions = recentConversionContainer.getElementsByTagName('tbody');
+    if (existingConversions.length >= 5) {
+      recentConversionContainer.removeChild(existingConversions[existingConversions.length - 1]);
+    }
+  }
+}
+
+// Function to save recent conversions in localStorage
+function saveToLocalStorage() {
+  const recentConversions = [];
+  const rows = document.getElementById('recentConversion').getElementsByTagName('tbody');
+  for (let i = 0; i < rows.length; i++) {
+    recentConversions.push(rows[i].innerHTML);
+  }
+  localStorage.setItem('recentConversions', JSON.stringify(recentConversions));
+}
+
+// Event listener for the "clearAll" button
 document.getElementById('clearAll').addEventListener('click', () => {
   // Clear only the rows
   const recentConversionContainer = document.getElementById('recentConversion');
@@ -379,7 +450,22 @@ document.getElementById('clearAll').addEventListener('click', () => {
     recentConversionContainer.removeChild(rows[0]);
   }
   previousConversion = null;
+
+  // Clear recent conversions from localStorage
+  localStorage.removeItem('recentConversions');
 });
+
+// On page load, retrieve recent conversions from localStorage and display them
+/*window.onload = () => {
+  const recentConversionContainer = document.getElementById('recentConversion');
+  const storedConversions = JSON.parse(localStorage.getItem('recentConversions')) || [];
+  storedConversions.forEach((conversion) => {
+    const newRow = document.createElement('tbody');
+    newRow.innerHTML = conversion;
+    recentConversionContainer.appendChild(newRow);
+  });
+};*/
+
 
 
 let display = document.getElementById('display');
