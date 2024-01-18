@@ -17,8 +17,6 @@ let add = document.querySelector('.add');
 let sub = document.querySelector('.sub');
 let clear = document.querySelector('.deleteicon');
 
-//let mod = document.querySelector('.modulo');
-//let neg = document.querySelector('.posinegative');
 let cancel = document.querySelector('.cancel');
 
 let operand1 = 0;
@@ -53,19 +51,6 @@ function minus(){
   operator = '-';
 }
 
-/*function modulo(){
-  operand1 = display.innerHTML;
-  display.innerHTML = '';
-  operator = '%';
-}*/
-
-/*function negative(){
-  let operator = '-';
-  operand1 = display.innerHTML;
-  let showIt = `${operator}${operand1}`;
-  display.innerHTML = showIt;
-}*/
-
 function eql() {
   operand2 = display.innerHTML;
   if (operator == '*') {
@@ -88,6 +73,7 @@ function eql() {
     let output = operand1 / operand2;
     display.innerHTML = output;
   }
+  periodClicked = false;
 }
 
 
@@ -110,8 +96,11 @@ function validateInput(display) {
     }
 
     const addPeriod = () => {
-      addToDisplay('.');
-    }
+  if (display.textContent !== '' && (display.textContent.includes('.') || display.textContent === '')) {
+    return; // Prevent adding period twice or at the beginning
+  }
+  addToDisplay('.');
+}
 
     const backspace = () => {
       display.textContent = display.textContent.slice(0, -1);
@@ -119,7 +108,7 @@ function validateInput(display) {
     }
     
     cancel.addEventListener('click', function(){
-  display.textContent = '';
+  display.innerHTML = '';
   operand1 = 0;
   operand2 = 0;
   operator = '';
@@ -157,6 +146,8 @@ zero.addEventListener('click', function(){
  show(0);
 });
 clear.addEventListener('click', backspace);
+//dot.addEventListener('click', show(`.`));
+
 dot.addEventListener('click', addPeriod);
 
     
