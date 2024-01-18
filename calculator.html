@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="description"
+        content="I help businesses build responsive and functional website using modern tools and innovations- Check my Portfolio out">
+    <meta name="keywords"
+        content="Web design, programming, Sales funnel, nascent creator, landing page, Wordpress, web development">
+    <meta name="author" content="Drisaden: The Marketing Jewel">
+    <title>Calculator by Drisaden</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+        integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!--<link rel="icon" type="image/png" href="https://adenaikeidris.com.ng/assets/images/myimage.webp">-->
+    <link rel="stylesheet" href="https://adenaikeidris.com.ng/assets/css/style.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.52.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
+</head>
+
+<body class="page-container">
+    
+    <!-- Page Container -->
+    <section class="container">
+      
+       <div id="" class="calculator p-4 md:p-5 space-y-4">
+                 <div class="calculator__output text-right border-0 rounded-md bg-gray-100 w-full h-20 pr-5 py-5 focus:outline-none focus:ring-1 focus:ring-blue-100"><p id="input" class="display block tx-2xl text-2xl">
+                   0</p>
+                  <!-- <p id="preview" class="text-gray-700 tx-xl text-xl">0</p>-->
+                   </div>
+               <div class="flex justify-evenly align-center">
+                <div class="w-10/12 grid grid-cols-3 gap-4 align-center border-r border-gray-300">
+                <button class="seven p-5 hover:rounded-lg hover:shadow-md">7</button>
+              <button class="eight p-5 hover:rounded-lg hover:shadow-md">8</button>
+               <button class="nine p-5 hover:rounded-lg hover:shadow-md">9</button>
+                <button class="four p-5 hover:rounded-lg hover:shadow-md">4</button>
+                 <button class="five p-5 hover:rounded-lg hover:shadow-md">5</button>
+                  <button class="six p-5 hover:rounded-lg hover:shadow-md">6</button>
+                   <button class="one p-5 hover:rounded-lg hover:shadow-md">1</button>
+                    <button class="two p-5 hover:rounded-lg hover:shadow-md">2</button>
+                     <button class="three p-5 hover:rounded-lg hover:shadow-md">3</button>
+                      <button class="zero   p-5 hover:rounded-lg hover:shadow-md">0</button>
+                          <button class="dot   p-5 hover:rounded-lg hover:shadow-md">.</button>
+                        <button id="deleteNum" class="deleteicon p-5 hover:rounded-lg hover:shadow-md"><i class="fa fa-arrow-left fa-sm" aria-hidden="true"></i></button>
+                        <button class="cancel   p-5 hover:rounded-lg hover:shadow-md">AC</button>
+    <button class="eql col-span-2 bg-diamond-2 text-white m-5 rounded-sm p-5 hover:rounded-lg hover:shadow-md">=</button>
+                      </div>
+                      <div class="w-3/12">
+                      <div class="flex flex-col justify-center align-center gap-4 align-center h-8/12">
+                      <button class="div p-5 hover:rounded-lg hover:shadow-md">&divide;</button>
+                      
+                        <button class="mul p-5 hover:rounded-lg hover:shadow-md">x</button>
+                      
+                      <button class="sub p-5 hover:rounded-lg hover:shadow-md">-</button>
+                     </div>
+                     <div class="flex flex-col justify-center align-center gap-4 align-center h-3/12">
+                    
+                      <button class="add flex-none h-32 p-5 mt-3 hover:rounded-lg hover:shadow-md">+</button>
+                      </div>
+                      </div>
+                   </div>
+            
+           
+               
+            
+            </div>
+            </div>
+
+
+
+       <!-- <div class="inner">
+            <div class="displaypanel">
+                <span class="display">
+                </span>
+            </div>
+            <div class="panel">
+                <div class="row-flex">
+                    <button class="cancel">AC</button>
+                    <button class="posinegative control">+/-</button>
+                    <button class="modulo control">%</button>
+                    <button class="div control">&divide;</button>
+                </div>
+                <div class="row-flex">
+                    <button class="seven">7</button>
+                    <button class="eight">8</button>
+                    <button class="nine">9</button>
+                    <button class="mul control">X</button>
+                </div>
+                <div class="row-flex">
+                    <button class="four">4</button>
+                    <button class="five">5</button>
+                    <button class="six">6</button>
+                    <button class="sub control">-</button>
+                </div>
+                <div class="row-flex">
+                    <button class="one">1</button>
+                    <button class="two">2</button>
+                    <button class="three">3</button>
+                    <button class="add control">+</button>
+                </div>
+                <div class="row-flex row-gap-1">
+                    <button class="zero">0</button>
+                    <button class="dot">.</button>
+                    <button class="eql control">=</button>
+                </div>
+            </div>
+        </div>-->
+    </section>
+
+    <!-- End Page Container -->
+    <script src="cal.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+
+</body>
+
+</html>
