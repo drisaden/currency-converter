@@ -466,7 +466,7 @@ document.getElementById('clearAll').addEventListener('click', () => {
   });
 };*/
 
-
+/*
 
 let display = document.getElementById('display');
  function validateInput(input) {
@@ -515,7 +515,7 @@ let display = document.getElementById('display');
 
     document.getElementById('deleteIcon').addEventListener('click', backspace);
     
-
+*/
 
 
 const exchangeButton = document.getElementById('exchange');
@@ -1032,7 +1032,7 @@ document.querySelectorAll('.currency-select').forEach(select => {
   
   */
   
-  const calculator = document.querySelector('.calculator');
+  /*const calculator = document.querySelector('.calculator');
 const output = calculator.querySelector('#input');
 const preview = calculator.querySelector('#preview');
 const keys = calculator.querySelectorAll('.calculator__key');
@@ -1068,7 +1068,7 @@ keys.forEach(key => {
         }
 
         if (action === 'calculate') {
-            const match = displayedNum.match(/^(\d+)\s*([+\-*/])\s*(\d+)$/);
+            const match = displayedNum.match(/^(\d+)\s*([+\-*//*])\s/*(\d+)$/);
 
             if (match) {
                 const firstValue = parseFloat(match[1]);
@@ -1120,7 +1120,7 @@ const backDelete = () => {
     }
     
     document.getElementById('deleteNum').addEventListener('click', backDelete);
-    
+    */
     
 
 /*function calculate(firstValue, operator, secondValue) {
